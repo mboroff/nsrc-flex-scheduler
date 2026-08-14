@@ -1,0 +1,3462 @@
+[
+    {
+        "id": "08c395fd888e93e3",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "34f3b5f18812163a",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "8e06cc4cf6b55eab",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "52514ed31cfbdeca",
+        "type": "tab",
+        "label": "MunEndfed",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "f2640a39539df39d",
+        "type": "tab",
+        "label": "Skokie",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "fd9a9d818b5e50e9",
+        "type": "tab",
+        "label": "Northbrook",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "9b10ae1da2b9c2a4",
+        "type": "tab",
+        "label": "Northfield",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "fb245b14c25e1736",
+        "type": "tab",
+        "label": "MunAV640",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "1a833e7e556e099d",
+        "type": "tab",
+        "label": "Endfed Single",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "246d5812a8bb8b85",
+        "type": "tab",
+        "label": "MunAV640 Single",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "fbd64501e7d55f1f",
+        "type": "tab",
+        "label": "Skokie Single",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "2e5af763d4b55869",
+        "type": "tab",
+        "label": "Northbrook Single",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "a9c4f2a75d09e103",
+        "type": "tab",
+        "label": "Northfield Single",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "a0bd36790f71e656",
+        "type": "tab",
+        "label": "V2 Raspberry monitoring",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "3ffe7667b86c8fb4",
+        "type": "ui-base",
+        "name": "North Shore Radio Club Flex-Cadre",
+        "path": "/dashboard",
+        "appIcon": "",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": false,
+        "headerContent": "page",
+        "navigationStyle": "default",
+        "titleBarStyle": "default",
+        "showReconnectNotification": true,
+        "notificationDisplayTime": 1,
+        "showDisconnectNotification": true,
+        "allowInstall": false
+    },
+    {
+        "id": "3015cd7d7e21a7ce",
+        "type": "ui-theme",
+        "name": "NSRC Flex-Cadre Theme",
+        "colors": {
+            "surface": "#ffffff",
+            "primary": "#0891b2",
+            "bgPage": "#4169e1",
+            "groupBg": "#ffffff",
+            "groupOutline": "#000000"
+        },
+        "sizes": {
+            "pagePadding": "16px",
+            "groupGap": "18px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px",
+            "density": "default"
+        }
+    },
+    {
+        "id": "578806851d27f116",
+        "type": "ui-page",
+        "name": "North Shore Radio Club Flex-Cadre",
+        "ui": "3ffe7667b86c8fb4",
+        "path": "/radio-activation",
+        "icon": "dashboard",
+        "layout": "grid",
+        "theme": "3015cd7d7e21a7ce",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "2"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "order": 1,
+        "className": "",
+        "visible": true,
+        "disabled": false
+    },
+    {
+        "id": "3dbbac938606967c",
+        "type": "ui-group",
+        "name": "Radios",
+        "page": "578806851d27f116",
+        "width": "3",
+        "height": "1",
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "77639fb5dbcbebf1",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "10.0.0.77",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "protocolVersion": "3",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "95c7d08b97d8d15b",
+        "type": "ui-group",
+        "name": "All Status",
+        "page": "578806851d27f116",
+        "width": "8",
+        "height": "1",
+        "order": 2,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "0a7029a36c9d7e70",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "036f2a8df11619d8",
+        "type": "ui-page",
+        "name": "Munendfed ",
+        "ui": "3ffe7667b86c8fb4",
+        "path": "/MunEndfed",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "3015cd7d7e21a7ce",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "1024",
+                "cols": "12"
+            },
+            {
+                "name": "Desktop",
+                "px": "2048",
+                "cols": "24"
+            }
+        ],
+        "order": 3,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "922de596ac7a0e47",
+        "type": "ui-group",
+        "name": "Radio",
+        "page": "036f2a8df11619d8",
+        "width": "3",
+        "height": 1,
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "a8aeb5b9575a0682",
+        "type": "ui-group",
+        "name": "Status",
+        "page": "036f2a8df11619d8",
+        "width": 6,
+        "height": 1,
+        "order": 2,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "583f7ec2e59c3e0d",
+        "type": "ui-page",
+        "name": "MunAV640",
+        "ui": "3ffe7667b86c8fb4",
+        "path": "/MunAV640",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "3015cd7d7e21a7ce",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "order": 2,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "6ec810606eccfbce",
+        "type": "ui-group",
+        "name": "Status",
+        "page": "583f7ec2e59c3e0d",
+        "width": 6,
+        "height": 1,
+        "order": 2,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "dadf3c207f4e93d7",
+        "type": "ui-page",
+        "name": "Skokie",
+        "ui": "3ffe7667b86c8fb4",
+        "path": "/Skokie",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "3015cd7d7e21a7ce",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "order": 6,
+        "className": "",
+        "visible": true,
+        "disabled": false
+    },
+    {
+        "id": "63677b46be4e7bcb",
+        "type": "ui-group",
+        "name": "Status",
+        "page": "dadf3c207f4e93d7",
+        "width": "8",
+        "height": 1,
+        "order": 2,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "431cab14f85f2c47",
+        "type": "ui-group",
+        "name": "Radio",
+        "page": "583f7ec2e59c3e0d",
+        "width": "3",
+        "height": 1,
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "aef0e95a1dbbaa90",
+        "type": "ui-group",
+        "name": "Radio",
+        "page": "dadf3c207f4e93d7",
+        "width": "3",
+        "height": 1,
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "8886099c4a6cac31",
+        "type": "ui-page",
+        "name": "Northbrook",
+        "ui": "3ffe7667b86c8fb4",
+        "path": "/Northbrook",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "3015cd7d7e21a7ce",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "order": 4,
+        "className": "",
+        "visible": true,
+        "disabled": false
+    },
+    {
+        "id": "3a0921fc346ee86b",
+        "type": "ui-group",
+        "name": "Status",
+        "page": "8886099c4a6cac31",
+        "width": "8",
+        "height": 1,
+        "order": 2,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "777cb93734080909",
+        "type": "ui-page",
+        "name": "Northfield ",
+        "ui": "3ffe7667b86c8fb4",
+        "path": "/Northfield",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "3015cd7d7e21a7ce",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "order": 5,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "3d6aad5199a21ad4",
+        "type": "ui-group",
+        "name": "Radio",
+        "page": "777cb93734080909",
+        "width": "3",
+        "height": 1,
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "6fc75f4ad3425a7c",
+        "type": "ui-group",
+        "name": "Status",
+        "page": "777cb93734080909",
+        "width": 6,
+        "height": 1,
+        "order": 2,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "78b5f3228e6498c8",
+        "type": "ui-group",
+        "name": "Radio",
+        "page": "8886099c4a6cac31",
+        "width": "3",
+        "height": 1,
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "39cf854df3d80368",
+        "type": "ui-page",
+        "name": "RPI Control / Rasp Pi control",
+        "ui": "3ffe7667b86c8fb4",
+        "path": "/pi",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "3015cd7d7e21a7ce",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "1024",
+                "cols": "12"
+            },
+            {
+                "name": "Desktop",
+                "px": "2048",
+                "cols": "24"
+            }
+        ],
+        "order": 7,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "5f9daa5b3dd1596d",
+        "type": "ui-group",
+        "name": "Misc Info",
+        "page": "39cf854df3d80368",
+        "width": "3",
+        "height": 1,
+        "order": 2,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "cfd968d72beeb9fd",
+        "type": "ui-group",
+        "name": "Raspberry Pi ctrl",
+        "page": "39cf854df3d80368",
+        "width": "6",
+        "height": 1,
+        "order": 1,
+        "showTitle": false,
+        "className": "",
+        "visible": "false",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "f9265fae53348d3a",
+        "type": "ui-template",
+        "z": "8e06cc4cf6b55eab",
+        "group": "3dbbac938606967c",
+        "page": "",
+        "ui": "",
+        "name": "Header Date/Time",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "head": "",
+        "format": "<template>\n    <Teleport v-if=\"mounted\" to=\"#app-bar-actions\">\n        <span class=\"header-clock\">{{ dateTimeStr }}</span>\n    </Teleport>\n</template>\n\n<style>\n.header-clock {\n    color: #000000;\n    font-weight: 500;\n    font-size: 1.25rem;\n    line-height: 1.6;\n    margin-right: 4px;\n    white-space: nowrap;\n    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;\n}\n</style>\n\n<script>\nexport default {\n    data() {\n        return {\n            mounted: false,\n            dateTimeStr: ''\n        }\n    },\n    mounted() {\n        this.mounted = true;\n        this.updateClock();\n        this.clockTimer = setInterval(this.updateClock, 1000);\n    },\n    beforeUnmount() {\n        if (this.clockTimer) {\n            clearInterval(this.clockTimer);\n        }\n    },\n    methods: {\n        updateClock() {\n            var now = new Date();\n            var dateStr = now.toLocaleDateString(undefined, { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });\n            var timeStr = now.toLocaleTimeString();\n            this.dateTimeStr = dateStr + '  \\u2022  ' + timeStr;\n        }\n    }\n}\n</script>",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 120,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ae892c8ad09f9c3c",
+        "type": "mqtt out",
+        "z": "52514ed31cfbdeca",
+        "name": "",
+        "topic": "MunEndfed/send",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "77639fb5dbcbebf1",
+        "x": 350,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "724065768345b7c3",
+        "type": "ui-button",
+        "z": "52514ed31cfbdeca",
+        "group": "3dbbac938606967c",
+        "name": "Activte MunEndfed all",
+        "label": "Activate Mundelein Endfed",
+        "order": 2,
+        "width": "3",
+        "height": "1",
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "White",
+        "bgcolor": "Green",
+        "className": "btn-3d",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "On",
+        "payloadType": "str",
+        "topic": "MunEndfed/On",
+        "topicType": "str",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 120,
+        "y": 60,
+        "wires": [
+            [
+                "ae892c8ad09f9c3c",
+                "973883b003b9a558"
+            ]
+        ]
+    },
+    {
+        "id": "3be391041d79a54c",
+        "type": "ui-text",
+        "z": "52514ed31cfbdeca",
+        "group": "95c7d08b97d8d15b",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "Endfed status all",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "style": true,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "wrapText": true,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 630,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "973883b003b9a558",
+        "type": "function",
+        "z": "52514ed31cfbdeca",
+        "name": "Activating MunEndfed",
+        "func": "msg.payload = \"Activating - SmartLink will be available in 1 minute\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 180,
+        "y": 140,
+        "wires": [
+            [
+                "336439515b0ef385",
+                "3be391041d79a54c"
+            ]
+        ]
+    },
+    {
+        "id": "336439515b0ef385",
+        "type": "function",
+        "z": "52514ed31cfbdeca",
+        "name": "Countdown",
+        "func": "if (context.get('timer')) {\n    clearInterval(context.get('timer'));\n    context.set('timer', null);\n}\n\nvar count = 55;\nnode.send([{ payload: \"SmartLink will be available in \" + count + \" seconds\" }, null]);\n\nvar timer = setInterval(function () {\n    count--;\n    if (count > 0) {\n        node.send([{ payload: \"SmartLink will be available in \" + count + \" seconds\" }, null]);\n    } else {\n        clearInterval(timer);\n        context.set('timer', null);\n        node.send([null, msg]);\n    }\n}, 1000);\n\ncontext.set('timer', timer);\nreturn null;",
+        "outputs": 2,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "if (context.get('timer')) {\n    clearInterval(context.get('timer'));\n}",
+        "libs": [],
+        "x": 160,
+        "y": 220,
+        "wires": [
+            [
+                "3be391041d79a54c"
+            ],
+            [
+                "9abdf3fe00f9868e"
+            ]
+        ]
+    },
+    {
+        "id": "9abdf3fe00f9868e",
+        "type": "function",
+        "z": "52514ed31cfbdeca",
+        "name": "MunEndfe Available",
+        "func": "msg.payload = \"SmartLink Available\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 180,
+        "y": 300,
+        "wires": [
+            [
+                "3be391041d79a54c"
+            ]
+        ]
+    },
+    {
+        "id": "4028db381134434d",
+        "type": "inject",
+        "z": "52514ed31cfbdeca",
+        "name": "Startup",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Available for Activation                           ",
+        "payloadType": "str",
+        "x": 420,
+        "y": 160,
+        "wires": [
+            [
+                "3be391041d79a54c"
+            ]
+        ]
+    },
+    {
+        "id": "365fa4f2248443f0",
+        "type": "mqtt in",
+        "z": "52514ed31cfbdeca",
+        "name": "MunEndfed/recv",
+        "topic": "MunEndfed/recv",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "77639fb5dbcbebf1",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 560,
+        "y": 80,
+        "wires": [
+            [
+                "3be391041d79a54c"
+            ]
+        ]
+    },
+    {
+        "id": "b7e97a542dadfa06",
+        "type": "ui-template",
+        "z": "52514ed31cfbdeca",
+        "group": "3dbbac938606967c",
+        "page": "",
+        "ui": "",
+        "name": "Close",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "head": "",
+        "format": "<template>\n    <div style=\"display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;\">\n        <v-btn color=\"primary\" @click=\"closeTab\">\n            Close Tab\n        </v-btn>\n    </div>\n</template>\n\n<script>\n    export default {\n    methods: {\n        closeTab() {\n            window.close();\n        }\n    }\n}\n</script>",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 270,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4c43a16227abee45",
+        "type": "inject",
+        "z": "f2640a39539df39d",
+        "name": "Startup",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Available For Activation",
+        "payloadType": "str",
+        "x": 210,
+        "y": 100,
+        "wires": [
+            [
+                "7e2f34c5deb3720d"
+            ]
+        ]
+    },
+    {
+        "id": "6eb276af077290f6",
+        "type": "ui-button",
+        "z": "f2640a39539df39d",
+        "group": "3dbbac938606967c",
+        "name": "Activate Skokie All",
+        "label": "Activate Skokie",
+        "order": 5,
+        "width": "3",
+        "height": "1",
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "White",
+        "bgcolor": "Green",
+        "className": "btn-3d",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "On",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 240,
+        "y": 200,
+        "wires": [
+            [
+                "fe9c5b73a7072b48",
+                "9bf5a6c02233fbb6"
+            ]
+        ]
+    },
+    {
+        "id": "7e2f34c5deb3720d",
+        "type": "ui-text",
+        "z": "f2640a39539df39d",
+        "group": "95c7d08b97d8d15b",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "Skokie Status All",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "style": true,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "wrapText": true,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 570,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "9bf5a6c02233fbb6",
+        "type": "mqtt out",
+        "z": "f2640a39539df39d",
+        "name": "",
+        "topic": "Skokie/send",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "77639fb5dbcbebf1",
+        "x": 250,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "fe9c5b73a7072b48",
+        "type": "function",
+        "z": "f2640a39539df39d",
+        "name": "Activating MunEndfed",
+        "func": "msg.payload = \"Activating - SmartLink will be available in 1 minute\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 380,
+        "wires": [
+            [
+                "a39896fc847d458b",
+                "7e2f34c5deb3720d"
+            ]
+        ]
+    },
+    {
+        "id": "a39896fc847d458b",
+        "type": "function",
+        "z": "f2640a39539df39d",
+        "name": "Countdown",
+        "func": "if (context.get('timer')) {\n    clearInterval(context.get('timer'));\n    context.set('timer', null);\n}\n\nvar count = 55;\nnode.send([{ payload: \"SmartLink will be available in \" + count + \" seconds\" }, null]);\n\nvar timer = setInterval(function () {\n    count--;\n    if (count > 0) {\n        node.send([{ payload: \"SmartLink will be available in \" + count + \" seconds\" }, null]);\n    } else {\n        clearInterval(timer);\n        context.set('timer', null);\n        node.send([null, msg]);\n    }\n}, 1000);\n\ncontext.set('timer', timer);\nreturn null;",
+        "outputs": 2,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "if (context.get('timer')) {\n    clearInterval(context.get('timer'));\n}",
+        "libs": [],
+        "x": 260,
+        "y": 460,
+        "wires": [
+            [
+                "7e2f34c5deb3720d"
+            ],
+            [
+                "62321e9119a05aba"
+            ]
+        ]
+    },
+    {
+        "id": "62321e9119a05aba",
+        "type": "function",
+        "z": "f2640a39539df39d",
+        "name": "MunEndfe Available",
+        "func": "msg.payload = \"SmartLink Available\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 540,
+        "wires": [
+            [
+                "7e2f34c5deb3720d"
+            ]
+        ]
+    },
+    {
+        "id": "808038ec6376329c",
+        "type": "inject",
+        "z": "f2640a39539df39d",
+        "name": "Startup",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Available for Activation                           ",
+        "payloadType": "str",
+        "x": 520,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e3248e65c388861e",
+        "type": "mqtt in",
+        "z": "f2640a39539df39d",
+        "name": "Skokie/recv",
+        "topic": "Skokie/recv",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "77639fb5dbcbebf1",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 650,
+        "y": 320,
+        "wires": [
+            [
+                "7e2f34c5deb3720d"
+            ]
+        ]
+    },
+    {
+        "id": "2d1499385179c7b4",
+        "type": "inject",
+        "z": "fd9a9d818b5e50e9",
+        "name": "Startup",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Available For Activation",
+        "payloadType": "str",
+        "x": 240,
+        "y": 60,
+        "wires": [
+            [
+                "d22b601cf3cac1be"
+            ]
+        ]
+    },
+    {
+        "id": "5b2c017ec411c963",
+        "type": "ui-button",
+        "z": "fd9a9d818b5e50e9",
+        "group": "3dbbac938606967c",
+        "name": "Activate Northbrook All",
+        "label": "Activate Northbrook",
+        "order": 3,
+        "width": "3",
+        "height": "1",
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "White",
+        "bgcolor": "Green",
+        "className": "btn-3d",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "On",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 290,
+        "y": 120,
+        "wires": [
+            [
+                "46206fe161a58459",
+                "8cba986d4b2333d7"
+            ]
+        ]
+    },
+    {
+        "id": "d22b601cf3cac1be",
+        "type": "ui-text",
+        "z": "fd9a9d818b5e50e9",
+        "group": "95c7d08b97d8d15b",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "name": "Northbrook Status Al",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "style": true,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "wrapText": true,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 600,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "8cba986d4b2333d7",
+        "type": "mqtt out",
+        "z": "fd9a9d818b5e50e9",
+        "name": "",
+        "topic": "Northbrook/send",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "77639fb5dbcbebf1",
+        "x": 610,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "46206fe161a58459",
+        "type": "function",
+        "z": "fd9a9d818b5e50e9",
+        "name": "Activating Northbrook",
+        "func": "msg.payload = \"Activating - SmartLink will be available in 1 minute\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 320,
+        "wires": [
+            [
+                "3eda47e94837bb84",
+                "d22b601cf3cac1be"
+            ]
+        ]
+    },
+    {
+        "id": "3eda47e94837bb84",
+        "type": "function",
+        "z": "fd9a9d818b5e50e9",
+        "name": "Countdown",
+        "func": "if (context.get('timer')) {\n    clearInterval(context.get('timer'));\n    context.set('timer', null);\n}\n\nvar count = 55;\nnode.send([{ payload: \"SmartLink will be available in \" + count + \" seconds\" }, null]);\n\nvar timer = setInterval(function () {\n    count--;\n    if (count > 0) {\n        node.send([{ payload: \"SmartLink will be available in \" + count + \" seconds\" }, null]);\n    } else {\n        clearInterval(timer);\n        context.set('timer', null);\n        node.send([null, msg]);\n    }\n}, 1000);\n\ncontext.set('timer', timer);\nreturn null;",
+        "outputs": 2,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "if (context.get('timer')) {\n    clearInterval(context.get('timer'));\n}",
+        "libs": [],
+        "x": 340,
+        "y": 400,
+        "wires": [
+            [
+                "d22b601cf3cac1be"
+            ],
+            [
+                "81a0783cda5818bb"
+            ]
+        ]
+    },
+    {
+        "id": "81a0783cda5818bb",
+        "type": "function",
+        "z": "fd9a9d818b5e50e9",
+        "name": "Northbrook Available",
+        "func": "msg.payload = \"SmartLink Available\"\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 480,
+        "wires": [
+            [
+                "d22b601cf3cac1be"
+            ]
+        ]
+    },
+    {
+        "id": "60c98c7022d21cb2",
+        "type": "mqtt in",
+        "z": "fd9a9d818b5e50e9",
+        "name": "Northbrook/recv",
+        "topic": "Northbrook/recv",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "77639fb5dbcbebf1",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 580,
+        "y": 200,
+        "wires": [
+            [
+                "d22b601cf3cac1be"
+            ]
+        ]
+    },
+    {
+        "id": "eaecc0d6e9ad9ca8",
+        "type": "inject",
+        "z": "9b10ae1da2b9c2a4",
+        "name": "Startup",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Not Available For activation",
+        "payloadType": "str",
+        "x": 220,
+        "y": 114,
+        "wires": [
+            [
+                "c4ef06d5b2afe277"
+            ]
+        ]
+    },
+    {
+        "id": "f4a9be8eee9d550b",
+        "type": "ui-button",
+        "z": "9b10ae1da2b9c2a4",
+        "group": "3dbbac938606967c",
+        "name": "Activate Northfield All",
+        "label": "Activate Northfield",
+        "order": 4,
+        "width": "3",
+        "height": "1",
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "White",
+        "bgcolor": "Green",
+        "className": "btn-3d",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "On",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 202,
+        "y": 178,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c4ef06d5b2afe277",
+        "type": "ui-text",
+        "z": "9b10ae1da2b9c2a4",
+        "group": "95c7d08b97d8d15b",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "Northfield Status All",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "style": true,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "wrapText": true,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 460,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "29bfefedb7b5e53f",
+        "type": "mqtt out",
+        "z": "fb245b14c25e1736",
+        "name": "",
+        "topic": "MunAV640/send",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "77639fb5dbcbebf1",
+        "x": 440,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "e52dd9222a4b0da0",
+        "type": "ui-text",
+        "z": "fb245b14c25e1736",
+        "group": "95c7d08b97d8d15b",
+        "order": 1,
+        "width": "8",
+        "height": "1",
+        "name": "MunAV640 Status All",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "style": true,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "wrapText": true,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 600,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "dee8cca4c549fbd3",
+        "type": "function",
+        "z": "fb245b14c25e1736",
+        "name": "Activating MunAV640",
+        "func": "msg.payload = \"Activating - SmartLink will be available in 1 minute\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 240,
+        "y": 140,
+        "wires": [
+            [
+                "4ccb6007a82012b2",
+                "e52dd9222a4b0da0"
+            ]
+        ]
+    },
+    {
+        "id": "4ccb6007a82012b2",
+        "type": "function",
+        "z": "fb245b14c25e1736",
+        "name": "Countdown",
+        "func": "if (context.get('timer')) {\n    clearInterval(context.get('timer'));\n    context.set('timer', null);\n}\n\nvar count = 55;\nnode.send([{ payload: \"SmartLink will be available in \" + count + \" seconds\" }, null]);\n\nvar timer = setInterval(function () {\n    count--;\n    if (count > 0) {\n        node.send([{ payload: \"SmartLink will be available in \" + count + \" seconds\" }, null]);\n    } else {\n        clearInterval(timer);\n        context.set('timer', null);\n        node.send([null, msg]);\n    }\n}, 1000);\n\ncontext.set('timer', timer);\nreturn null;",
+        "outputs": 2,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "if (context.get('timer')) {\n    clearInterval(context.get('timer'));\n}",
+        "libs": [],
+        "x": 160,
+        "y": 220,
+        "wires": [
+            [
+                "e52dd9222a4b0da0"
+            ],
+            [
+                "d3840a501882bc33"
+            ]
+        ]
+    },
+    {
+        "id": "d3840a501882bc33",
+        "type": "function",
+        "z": "fb245b14c25e1736",
+        "name": "MunAV640 Available",
+        "func": "msg.payload = \"SmartLink Available\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 180,
+        "y": 300,
+        "wires": [
+            [
+                "e52dd9222a4b0da0"
+            ]
+        ]
+    },
+    {
+        "id": "af2830077a4e69fd",
+        "type": "inject",
+        "z": "fb245b14c25e1736",
+        "name": "Startup",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Available for Activation                           ",
+        "payloadType": "str",
+        "x": 420,
+        "y": 160,
+        "wires": [
+            [
+                "e52dd9222a4b0da0"
+            ]
+        ]
+    },
+    {
+        "id": "adeec64682911e45",
+        "type": "mqtt in",
+        "z": "fb245b14c25e1736",
+        "name": "MunAV640/recv",
+        "topic": "MunAV640/recv",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "77639fb5dbcbebf1",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 560,
+        "y": 80,
+        "wires": [
+            [
+                "e52dd9222a4b0da0"
+            ]
+        ]
+    },
+    {
+        "id": "8766af689e9954ce",
+        "type": "ui-button",
+        "z": "fb245b14c25e1736",
+        "group": "3dbbac938606967c",
+        "name": "MunAV640 All",
+        "label": "Activate Mundelein AV640",
+        "order": 1,
+        "width": "3",
+        "height": "1",
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "White",
+        "bgcolor": "Green",
+        "className": "btn-3d",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "On",
+        "payloadType": "str",
+        "topic": "MunAV640/On",
+        "topicType": "str",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 160,
+        "y": 40,
+        "wires": [
+            [
+                "29bfefedb7b5e53f",
+                "dee8cca4c549fbd3"
+            ]
+        ]
+    },
+    {
+        "id": "02de05e9c7370f47",
+        "type": "ui-template",
+        "z": "1a833e7e556e099d",
+        "group": "922de596ac7a0e47",
+        "page": "",
+        "ui": "",
+        "name": "Close",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "head": "",
+        "format": "<template>\n    <div style=\"display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;\">\n        <v-btn color=\"primary\" @click=\"closeTab\">\n            Close Tab\n        </v-btn>\n    </div>\n</template>\n\n<script>\n    export default {\n    methods: {\n        closeTab() {\n            window.close();\n        }\n    }\n}\n</script>",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 150,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2d48bd9a069a47df",
+        "type": "ui-button",
+        "z": "1a833e7e556e099d",
+        "group": "922de596ac7a0e47",
+        "name": "MunEndfed Single",
+        "label": "Activate Mundelein Endfed",
+        "order": 1,
+        "width": "3",
+        "height": "1",
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "White",
+        "bgcolor": "Green",
+        "className": "btn-3d",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "On",
+        "payloadType": "str",
+        "topic": "MunEndfed/On",
+        "topicType": "str",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 150,
+        "y": 60,
+        "wires": [
+            [
+                "d04c7774ed3d65f9",
+                "a7f3d1faea1bdeb9"
+            ]
+        ]
+    },
+    {
+        "id": "a25371953e9612ca",
+        "type": "ui-text",
+        "z": "1a833e7e556e099d",
+        "group": "a8aeb5b9575a0682",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "Endfed Status Single",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "style": true,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "wrapText": true,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 540,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "d04c7774ed3d65f9",
+        "type": "mqtt out",
+        "z": "1a833e7e556e099d",
+        "name": "",
+        "topic": "MunEndfed/send",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "77639fb5dbcbebf1",
+        "x": 330,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "a7f3d1faea1bdeb9",
+        "type": "function",
+        "z": "1a833e7e556e099d",
+        "name": "Activating MunEndfed",
+        "func": "msg.payload = \"Activating - SmartLink will be available in 1 minute\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 160,
+        "y": 220,
+        "wires": [
+            [
+                "286df6fecd8e865b",
+                "a25371953e9612ca"
+            ]
+        ]
+    },
+    {
+        "id": "286df6fecd8e865b",
+        "type": "function",
+        "z": "1a833e7e556e099d",
+        "name": "Countdown",
+        "func": "if (context.get('timer')) {\n    clearInterval(context.get('timer'));\n    context.set('timer', null);\n}\n\nvar count = 55;\nnode.send([{ payload: \"SmartLink will be available in \" + count + \" seconds\" }, null]);\n\nvar timer = setInterval(function () {\n    count--;\n    if (count > 0) {\n        node.send([{ payload: \"SmartLink will be available in \" + count + \" seconds\" }, null]);\n    } else {\n        clearInterval(timer);\n        context.set('timer', null);\n        node.send([null, msg]);\n    }\n}, 1000);\n\ncontext.set('timer', timer);\nreturn null;",
+        "outputs": 2,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "if (context.get('timer')) {\n    clearInterval(context.get('timer'));\n}",
+        "libs": [],
+        "x": 140,
+        "y": 300,
+        "wires": [
+            [
+                "a25371953e9612ca"
+            ],
+            [
+                "ac839bc745a8a572"
+            ]
+        ]
+    },
+    {
+        "id": "ac839bc745a8a572",
+        "type": "function",
+        "z": "1a833e7e556e099d",
+        "name": "MunEndfe Available",
+        "func": "msg.payload = \"SmartLink Available\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 160,
+        "y": 380,
+        "wires": [
+            [
+                "a25371953e9612ca"
+            ]
+        ]
+    },
+    {
+        "id": "951c72e2b777cf5e",
+        "type": "inject",
+        "z": "1a833e7e556e099d",
+        "name": "Startup",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Available for Activation                           ",
+        "payloadType": "str",
+        "x": 400,
+        "y": 240,
+        "wires": [
+            [
+                "a25371953e9612ca"
+            ]
+        ]
+    },
+    {
+        "id": "aa8138b43c7aaff3",
+        "type": "mqtt in",
+        "z": "1a833e7e556e099d",
+        "name": "MunEndfed/recv",
+        "topic": "MunEndfed/recv",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "77639fb5dbcbebf1",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 500,
+        "y": 160,
+        "wires": [
+            [
+                "a25371953e9612ca"
+            ]
+        ]
+    },
+    {
+        "id": "e48755382753133e",
+        "type": "ui-template",
+        "z": "1a833e7e556e099d",
+        "group": "922de596ac7a0e47",
+        "page": "",
+        "ui": "",
+        "name": "Header Date/Time",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "head": "",
+        "format": "<template>\n    <Teleport v-if=\"mounted\" to=\"#app-bar-actions\">\n        <span class=\"header-clock\">{{ dateTimeStr }}</span>\n    </Teleport>\n</template>\n\n<style>\n.header-clock {\n    color: #000000;\n    font-weight: 500;\n    font-size: 1.25rem;\n    line-height: 1.6;\n    margin-right: 4px;\n    white-space: nowrap;\n    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;\n}\n</style>\n\n<script>\nexport default {\n    data() {\n        return {\n            mounted: false,\n            dateTimeStr: ''\n        }\n    },\n    mounted() {\n        this.mounted = true;\n        this.updateClock();\n        this.clockTimer = setInterval(this.updateClock, 1000);\n    },\n    beforeUnmount() {\n        if (this.clockTimer) {\n            clearInterval(this.clockTimer);\n        }\n    },\n    methods: {\n        updateClock() {\n            var now = new Date();\n            var dateStr = now.toLocaleDateString(undefined, { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });\n            var timeStr = now.toLocaleTimeString();\n            this.dateTimeStr = dateStr + '  \\u2022  ' + timeStr;\n        }\n    }\n}\n</script>",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 120,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "adb7581505ecdd6a",
+        "type": "ui-template",
+        "z": "246d5812a8bb8b85",
+        "group": "431cab14f85f2c47",
+        "page": "",
+        "ui": "",
+        "name": "Close",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "head": "",
+        "format": "<template>\n    <div style=\"display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;\">\n        <v-btn color=\"primary\" @click=\"closeTab\">\n            Close Tab\n        </v-btn>\n    </div>\n</template>\n\n<script>\n    export default {\n    methods: {\n        closeTab() {\n            window.close();\n        }\n    }\n}\n</script>",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 110,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3ce19f16a9595b3a",
+        "type": "mqtt out",
+        "z": "246d5812a8bb8b85",
+        "name": "",
+        "topic": "MunAV640/send",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "77639fb5dbcbebf1",
+        "x": 320,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "ef8e3c8e273c7604",
+        "type": "ui-button",
+        "z": "246d5812a8bb8b85",
+        "group": "431cab14f85f2c47",
+        "name": "MunAV640 Single",
+        "label": "Activate Mundelein AV640",
+        "order": 1,
+        "width": "3",
+        "height": "1",
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "White",
+        "bgcolor": "Green",
+        "className": "btn-3d",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "On",
+        "payloadType": "str",
+        "topic": "MunAV640/On",
+        "topicType": "str",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 110,
+        "y": 220,
+        "wires": [
+            [
+                "3ce19f16a9595b3a",
+                "c4526e7306ea80e2"
+            ]
+        ]
+    },
+    {
+        "id": "c4526e7306ea80e2",
+        "type": "function",
+        "z": "246d5812a8bb8b85",
+        "name": "Activating MunAV640",
+        "func": "msg.payload = \"Activating - SmartLink will be available in 1 minute\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 160,
+        "y": 300,
+        "wires": [
+            [
+                "f7225c7112e2499a",
+                "cfe5a9a5423d6a91"
+            ]
+        ]
+    },
+    {
+        "id": "f7225c7112e2499a",
+        "type": "function",
+        "z": "246d5812a8bb8b85",
+        "name": "Countdown",
+        "func": "if (context.get('timer')) {\n    clearInterval(context.get('timer'));\n    context.set('timer', null);\n}\n\nvar count = 55;\nnode.send([{ payload: \"SmartLink will be available in \" + count + \" seconds\" }, null]);\n\nvar timer = setInterval(function () {\n    count--;\n    if (count > 0) {\n        node.send([{ payload: \"SmartLink will be available in \" + count + \" seconds\" }, null]);\n    } else {\n        clearInterval(timer);\n        context.set('timer', null);\n        node.send([null, msg]);\n    }\n}, 1000);\n\ncontext.set('timer', timer);\nreturn null;",
+        "outputs": 2,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "if (context.get('timer')) {\n    clearInterval(context.get('timer'));\n}",
+        "libs": [],
+        "x": 140,
+        "y": 380,
+        "wires": [
+            [
+                "cfe5a9a5423d6a91"
+            ],
+            [
+                "dae33fed91ad6064"
+            ]
+        ]
+    },
+    {
+        "id": "cfe5a9a5423d6a91",
+        "type": "ui-text",
+        "z": "246d5812a8bb8b85",
+        "group": "6ec810606eccfbce",
+        "order": 1,
+        "width": "8",
+        "height": "1",
+        "name": "MunAV640 Status All",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "style": true,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "wrapText": true,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 600,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "dae33fed91ad6064",
+        "type": "function",
+        "z": "246d5812a8bb8b85",
+        "name": "MunAV640 Available",
+        "func": "msg.payload = \"SmartLink Available\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 180,
+        "y": 460,
+        "wires": [
+            [
+                "cfe5a9a5423d6a91"
+            ]
+        ]
+    },
+    {
+        "id": "e8566953b34fc898",
+        "type": "inject",
+        "z": "246d5812a8bb8b85",
+        "name": "Startup",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Available for Activation                           ",
+        "payloadType": "str",
+        "x": 400,
+        "y": 320,
+        "wires": [
+            [
+                "cfe5a9a5423d6a91"
+            ]
+        ]
+    },
+    {
+        "id": "039766f631a33297",
+        "type": "mqtt in",
+        "z": "246d5812a8bb8b85",
+        "name": "MunAV640/recv",
+        "topic": "MunAV640/recv",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "77639fb5dbcbebf1",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 540,
+        "y": 240,
+        "wires": [
+            [
+                "cfe5a9a5423d6a91"
+            ]
+        ]
+    },
+    {
+        "id": "d082890eb8cc1125",
+        "type": "ui-template",
+        "z": "246d5812a8bb8b85",
+        "group": "431cab14f85f2c47",
+        "page": "",
+        "ui": "",
+        "name": "Header Date/Time",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "head": "",
+        "format": "<template>\n    <Teleport v-if=\"mounted\" to=\"#app-bar-actions\">\n        <span class=\"header-clock\">{{ dateTimeStr }}</span>\n    </Teleport>\n</template>\n\n<style>\n.header-clock {\n    color: #000000;\n    font-weight: 500;\n    font-size: 1.25rem;\n    line-height: 1.6;\n    margin-right: 4px;\n    white-space: nowrap;\n    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;\n}\n</style>\n\n<script>\nexport default {\n    data() {\n        return {\n            mounted: false,\n            dateTimeStr: ''\n        }\n    },\n    mounted() {\n        this.mounted = true;\n        this.updateClock();\n        this.clockTimer = setInterval(this.updateClock, 1000);\n    },\n    beforeUnmount() {\n        if (this.clockTimer) {\n            clearInterval(this.clockTimer);\n        }\n    },\n    methods: {\n        updateClock() {\n            var now = new Date();\n            var dateStr = now.toLocaleDateString(undefined, { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });\n            var timeStr = now.toLocaleTimeString();\n            this.dateTimeStr = dateStr + '  \\u2022  ' + timeStr;\n        }\n    }\n}\n</script>",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 120,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5169cc579c49c469",
+        "type": "ui-template",
+        "z": "fbd64501e7d55f1f",
+        "group": "aef0e95a1dbbaa90",
+        "page": "",
+        "ui": "",
+        "name": "Close",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "head": "",
+        "format": "<template>\n    <div style=\"display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;\">\n        <v-btn color=\"primary\" @click=\"closeTab\">\n            Close Tab\n        </v-btn>\n    </div>\n</template>\n\n<script>\n    export default {\n    methods: {\n        closeTab() {\n            window.close();\n        }\n    }\n}\n</script>",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 140,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "1a29f9f46b3f95d4",
+        "type": "ui-text",
+        "z": "fbd64501e7d55f1f",
+        "group": "63677b46be4e7bcb",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "Skokie Status Single",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "style": true,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "wrapText": true,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 520,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "181799ef689ed8e1",
+        "type": "inject",
+        "z": "fbd64501e7d55f1f",
+        "name": "Startup",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Available For Activation",
+        "payloadType": "str",
+        "x": 60,
+        "y": 160,
+        "wires": [
+            [
+                "1a29f9f46b3f95d4"
+            ]
+        ]
+    },
+    {
+        "id": "cceaa4751b1a7945",
+        "type": "ui-button",
+        "z": "fbd64501e7d55f1f",
+        "group": "aef0e95a1dbbaa90",
+        "name": "Activate Skokie Single",
+        "label": "Activate Skokie",
+        "order": 1,
+        "width": "3",
+        "height": "1",
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "White",
+        "bgcolor": "Green",
+        "className": "btn-3d",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "On",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 160,
+        "y": 280,
+        "wires": [
+            [
+                "70dd539c50fbdd19",
+                "96f89f7aee52f37f"
+            ]
+        ]
+    },
+    {
+        "id": "96f89f7aee52f37f",
+        "type": "function",
+        "z": "fbd64501e7d55f1f",
+        "name": "Activating MunEndfed",
+        "func": "msg.payload = \"Activating - SmartLink will be available in 1 minute\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 270,
+        "y": 540,
+        "wires": [
+            [
+                "d088cbdda4af0a0c",
+                "1a29f9f46b3f95d4"
+            ]
+        ]
+    },
+    {
+        "id": "70dd539c50fbdd19",
+        "type": "mqtt out",
+        "z": "fbd64501e7d55f1f",
+        "name": "",
+        "topic": "Skokie/send",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "77639fb5dbcbebf1",
+        "x": 420,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "d088cbdda4af0a0c",
+        "type": "function",
+        "z": "fbd64501e7d55f1f",
+        "name": "Countdown",
+        "func": "if (context.get('timer')) {\n    clearInterval(context.get('timer'));\n    context.set('timer', null);\n}\n\nvar count = 55;\nnode.send([{ payload: \"SmartLink will be available in \" + count + \" seconds\" }, null]);\n\nvar timer = setInterval(function () {\n    count--;\n    if (count > 0) {\n        node.send([{ payload: \"SmartLink will be available in \" + count + \" seconds\" }, null]);\n    } else {\n        clearInterval(timer);\n        context.set('timer', null);\n        node.send([null, msg]);\n    }\n}, 1000);\n\ncontext.set('timer', timer);\nreturn null;",
+        "outputs": 2,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "if (context.get('timer')) {\n    clearInterval(context.get('timer'));\n}",
+        "libs": [],
+        "x": 250,
+        "y": 620,
+        "wires": [
+            [
+                "1a29f9f46b3f95d4"
+            ],
+            [
+                "a047b71624bcf174"
+            ]
+        ]
+    },
+    {
+        "id": "a047b71624bcf174",
+        "type": "function",
+        "z": "fbd64501e7d55f1f",
+        "name": "MunEndfe Available",
+        "func": "msg.payload = \"SmartLink Available\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 270,
+        "y": 700,
+        "wires": [
+            [
+                "1a29f9f46b3f95d4"
+            ]
+        ]
+    },
+    {
+        "id": "0840985c2f06932d",
+        "type": "mqtt in",
+        "z": "fbd64501e7d55f1f",
+        "name": "Skokie/recv",
+        "topic": "Skokie/recv",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "77639fb5dbcbebf1",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 550,
+        "y": 500,
+        "wires": [
+            [
+                "1a29f9f46b3f95d4"
+            ]
+        ]
+    },
+    {
+        "id": "dfcf9ec7e36a534c",
+        "type": "ui-template",
+        "z": "fbd64501e7d55f1f",
+        "group": "aef0e95a1dbbaa90",
+        "page": "",
+        "ui": "",
+        "name": "Header Date/Time",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "head": "",
+        "format": "<template>\n    <Teleport v-if=\"mounted\" to=\"#app-bar-actions\">\n        <span class=\"header-clock\">{{ dateTimeStr }}</span>\n    </Teleport>\n</template>\n\n<style>\n.header-clock {\n    color: #000000;\n    font-weight: 500;\n    font-size: 1.25rem;\n    line-height: 1.6;\n    margin-right: 4px;\n    white-space: nowrap;\n    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;\n}\n</style>\n\n<script>\nexport default {\n    data() {\n        return {\n            mounted: false,\n            dateTimeStr: ''\n        }\n    },\n    mounted() {\n        this.mounted = true;\n        this.updateClock();\n        this.clockTimer = setInterval(this.updateClock, 1000);\n    },\n    beforeUnmount() {\n        if (this.clockTimer) {\n            clearInterval(this.clockTimer);\n        }\n    },\n    methods: {\n        updateClock() {\n            var now = new Date();\n            var dateStr = now.toLocaleDateString(undefined, { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });\n            var timeStr = now.toLocaleTimeString();\n            this.dateTimeStr = dateStr + '  \\u2022  ' + timeStr;\n        }\n    }\n}\n</script>",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 120,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3d8c2ddb9a409873",
+        "type": "ui-template",
+        "z": "2e5af763d4b55869",
+        "group": "78b5f3228e6498c8",
+        "page": "",
+        "ui": "",
+        "name": "Close",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "head": "",
+        "format": "<template>\n    <div style=\"display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;\">\n        <v-btn color=\"primary\" @click=\"closeTab\">\n            Close Tab\n        </v-btn>\n    </div>\n</template>\n\n<script>\n    export default {\n    methods: {\n        closeTab() {\n            window.close();\n        }\n    }\n}\n</script>",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 240,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f8b09c212e3f9ba3",
+        "type": "ui-button",
+        "z": "2e5af763d4b55869",
+        "group": "78b5f3228e6498c8",
+        "name": "Activate Northbrook Single",
+        "label": "Activate Northbrook",
+        "order": 1,
+        "width": "3",
+        "height": "1",
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "White",
+        "bgcolor": "Green",
+        "className": "btn-3d",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "On",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 240,
+        "y": 220,
+        "wires": [
+            [
+                "1e06c2e8f3499218",
+                "123c38bd27d74a55"
+            ]
+        ]
+    },
+    {
+        "id": "1e06c2e8f3499218",
+        "type": "function",
+        "z": "2e5af763d4b55869",
+        "name": "Activating Northbrook",
+        "func": "msg.payload = \"Activating - SmartLink will be available in 1 minute\";\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 420,
+        "wires": [
+            [
+                "3a287484ace716a7",
+                "11ccb30ac8ebd752"
+            ]
+        ]
+    },
+    {
+        "id": "123c38bd27d74a55",
+        "type": "mqtt out",
+        "z": "2e5af763d4b55869",
+        "name": "",
+        "topic": "Northbrook/send",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "77639fb5dbcbebf1",
+        "x": 550,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "3a287484ace716a7",
+        "type": "function",
+        "z": "2e5af763d4b55869",
+        "name": "Countdown",
+        "func": "if (context.get('timer')) {\n    clearInterval(context.get('timer'));\n    context.set('timer', null);\n}\n\nvar count = 55;\nnode.send([{ payload: \"SmartLink will be available in \" + count + \" seconds\" }, null]);\n\nvar timer = setInterval(function () {\n    count--;\n    if (count > 0) {\n        node.send([{ payload: \"SmartLink will be available in \" + count + \" seconds\" }, null]);\n    } else {\n        clearInterval(timer);\n        context.set('timer', null);\n        node.send([null, msg]);\n    }\n}, 1000);\n\ncontext.set('timer', timer);\nreturn null;",
+        "outputs": 2,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "if (context.get('timer')) {\n    clearInterval(context.get('timer'));\n}",
+        "libs": [],
+        "x": 280,
+        "y": 500,
+        "wires": [
+            [
+                "11ccb30ac8ebd752"
+            ],
+            [
+                "f4c631d9827b7845"
+            ]
+        ]
+    },
+    {
+        "id": "11ccb30ac8ebd752",
+        "type": "ui-text",
+        "z": "2e5af763d4b55869",
+        "group": "3a0921fc346ee86b",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "Northbrook Status Single",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "style": true,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "wrapText": true,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 550,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "f4c631d9827b7845",
+        "type": "function",
+        "z": "2e5af763d4b55869",
+        "name": "Northbrook Available",
+        "func": "msg.payload = \"SmartLink Available\"\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 580,
+        "wires": [
+            [
+                "11ccb30ac8ebd752"
+            ]
+        ]
+    },
+    {
+        "id": "628647341be1fbaf",
+        "type": "inject",
+        "z": "2e5af763d4b55869",
+        "name": "Startup",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Available For Activation",
+        "payloadType": "str",
+        "x": 180,
+        "y": 160,
+        "wires": [
+            [
+                "11ccb30ac8ebd752"
+            ]
+        ]
+    },
+    {
+        "id": "2bad9bccba2fd22f",
+        "type": "mqtt in",
+        "z": "2e5af763d4b55869",
+        "name": "Northbrook/recv",
+        "topic": "Northbrook/recv",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "77639fb5dbcbebf1",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 520,
+        "y": 300,
+        "wires": [
+            [
+                "11ccb30ac8ebd752"
+            ]
+        ]
+    },
+    {
+        "id": "931eebedb45a4059",
+        "type": "ui-template",
+        "z": "2e5af763d4b55869",
+        "group": "78b5f3228e6498c8",
+        "page": "",
+        "ui": "",
+        "name": "Header Date/Time",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "head": "",
+        "format": "<template>\n    <Teleport v-if=\"mounted\" to=\"#app-bar-actions\">\n        <span class=\"header-clock\">{{ dateTimeStr }}</span>\n    </Teleport>\n</template>\n\n<style>\n.header-clock {\n    color: #000000;\n    font-weight: 500;\n    font-size: 1.25rem;\n    line-height: 1.6;\n    margin-right: 4px;\n    white-space: nowrap;\n    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;\n}\n</style>\n\n<script>\nexport default {\n    data() {\n        return {\n            mounted: false,\n            dateTimeStr: ''\n        }\n    },\n    mounted() {\n        this.mounted = true;\n        this.updateClock();\n        this.clockTimer = setInterval(this.updateClock, 1000);\n    },\n    beforeUnmount() {\n        if (this.clockTimer) {\n            clearInterval(this.clockTimer);\n        }\n    },\n    methods: {\n        updateClock() {\n            var now = new Date();\n            var dateStr = now.toLocaleDateString(undefined, { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });\n            var timeStr = now.toLocaleTimeString();\n            this.dateTimeStr = dateStr + '  \\u2022  ' + timeStr;\n        }\n    }\n}\n</script>",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 120,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8a5de3f57f7c9027",
+        "type": "ui-template",
+        "z": "a9c4f2a75d09e103",
+        "group": "3d6aad5199a21ad4",
+        "page": "",
+        "ui": "",
+        "name": "Close",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "head": "",
+        "format": "<template>\n    <div style=\"display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;\">\n        <v-btn color=\"primary\" @click=\"closeTab\">\n            Close Tab\n        </v-btn>\n    </div>\n</template>\n\n<script>\n    export default {\n    methods: {\n        closeTab() {\n            window.close();\n        }\n    }\n}\n</script>",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 210,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5e9b522a8ec82620",
+        "type": "ui-button",
+        "z": "a9c4f2a75d09e103",
+        "group": "3d6aad5199a21ad4",
+        "name": "Activate Northfield Single",
+        "label": "Activate Northfield",
+        "order": 1,
+        "width": "3",
+        "height": "1",
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "White",
+        "bgcolor": "Green",
+        "className": "btn-3d",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "On",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "buttonColor": "",
+        "textColor": "",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 210,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "08938a259b7b6408",
+        "type": "ui-text",
+        "z": "a9c4f2a75d09e103",
+        "group": "6fc75f4ad3425a7c",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "Northfield Status All",
+        "label": "",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "style": true,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "wrapText": true,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 360,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "3e12037c3f8727ca",
+        "type": "inject",
+        "z": "a9c4f2a75d09e103",
+        "name": "Startup",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Not Available For activation",
+        "payloadType": "str",
+        "x": 140,
+        "y": 300,
+        "wires": [
+            [
+                "08938a259b7b6408"
+            ]
+        ]
+    },
+    {
+        "id": "adde6797b62fa7f1",
+        "type": "ui-template",
+        "z": "a9c4f2a75d09e103",
+        "group": "3d6aad5199a21ad4",
+        "page": "",
+        "ui": "",
+        "name": "Header Date/Time",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "head": "",
+        "format": "<template>\n    <Teleport v-if=\"mounted\" to=\"#app-bar-actions\">\n        <span class=\"header-clock\">{{ dateTimeStr }}</span>\n    </Teleport>\n</template>\n\n<style>\n.header-clock {\n    color: #000000;\n    font-weight: 500;\n    font-size: 1.25rem;\n    line-height: 1.6;\n    margin-right: 4px;\n    white-space: nowrap;\n    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;\n}\n</style>\n\n<script>\nexport default {\n    data() {\n        return {\n            mounted: false,\n            dateTimeStr: ''\n        }\n    },\n    mounted() {\n        this.mounted = true;\n        this.updateClock();\n        this.clockTimer = setInterval(this.updateClock, 1000);\n    },\n    beforeUnmount() {\n        if (this.clockTimer) {\n            clearInterval(this.clockTimer);\n        }\n    },\n    methods: {\n        updateClock() {\n            var now = new Date();\n            var dateStr = now.toLocaleDateString(undefined, { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' });\n            var timeStr = now.toLocaleTimeString();\n            this.dateTimeStr = dateStr + '  \\u2022  ' + timeStr;\n        }\n    }\n}\n</script>",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 120,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3e94ec3eb3e2fdb1",
+        "type": "exec",
+        "z": "a0bd36790f71e656",
+        "command": "vcgencmd measure_temp",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "",
+        "timer": "",
+        "name": "RPi Temp.",
+        "x": 430,
+        "y": 180,
+        "wires": [
+            [
+                "28e09dd24b1b7f04"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "eb72c1ef7aabf6af",
+        "type": "inject",
+        "z": "a0bd36790f71e656",
+        "name": "",
+        "props": [
+            {
+                "p": "payload",
+                "v": "",
+                "vt": "date"
+            },
+            {
+                "p": "topic",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "repeat": "3",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 210,
+        "y": 240,
+        "wires": [
+            [
+                "3e94ec3eb3e2fdb1",
+                "82bb10e693e39968",
+                "c1cfe6e897b106b3"
+            ]
+        ]
+    },
+    {
+        "id": "82bb10e693e39968",
+        "type": "exec",
+        "z": "a0bd36790f71e656",
+        "command": "top -bn2 | grep \"Cpu(s)\" | tail -n1 | awk '{print 100 - $8}'",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "",
+        "timer": "",
+        "winHide": false,
+        "name": "CPU Load",
+        "x": 430,
+        "y": 240,
+        "wires": [
+            [
+                "956416f50edfe9b2"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "c1cfe6e897b106b3",
+        "type": "exec",
+        "z": "a0bd36790f71e656",
+        "command": "free | awk '/Mem:/ {print 100*$3/$2}'",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "",
+        "timer": "",
+        "winHide": false,
+        "name": "Used Memory",
+        "x": 420,
+        "y": 300,
+        "wires": [
+            [
+                "929536c9749b4910"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "2d543b7922720e64",
+        "type": "exec",
+        "z": "a0bd36790f71e656",
+        "command": "df -h",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "",
+        "timer": "",
+        "name": "Disk Usage",
+        "x": 430,
+        "y": 480,
+        "wires": [
+            [
+                "2893706ecd38d032"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "2893706ecd38d032",
+        "type": "function",
+        "z": "a0bd36790f71e656",
+        "name": "",
+        "func": "\n\n// @ts-nocheck\n/**\n * Node-RED Function: Extract disk USED percent from `df -h` output\n *\n * Input:\n *   msg.payload = full text output of `df -h`\n *\n * Output:\n *   msg.payload = <number>   // percent used (e.g., 64)\n *\n * Default behavior:\n *   - returns Use% for the root filesystem mounted on \"/\"\n *\n * Notes:\n *   - Handles 1–3 digit percentages (0%..100%)\n *   - Avoids accidentally grabbing the first 2-digit percent from some other mount\n */\n\nconst text = (msg.payload ?? \"\").toString();\nconst lines = text.split(/\\r?\\n/).map(l => l.trim()).filter(Boolean);\n\n// Choose which mount you want; \"/\" is most common.\nconst TARGET_MOUNT = \"/\";\n\nfor (const line of lines) {\n    // Match lines that end with the mount point (e.g., \"... 64% /\")\n    // Use whitespace before mount to avoid matching \"/boot/firmware\" when TARGET_MOUNT is \"/\"\n    const mountRe = new RegExp(`\\\\s${TARGET_MOUNT.replace(/[.*+?^${}()|[\\]\\\\]/g, \"\\\\$&\")}$`);\n    if (!mountRe.test(line)) continue;\n\n    // Extract Use% (first occurrence of N% on that line)\n    const m = line.match(/(\\d{1,3})%/);\n    if (m) {\n        msg.payload = Number(m[1]); // disk USED percent\n        return msg;\n    }\n}\n\n// If we didn't find the target mount, fall back to first percentage found (optional)\n// Comment out this block if you'd rather output null on failure.\nconst fallback = text.match(/(\\d{1,3})%/);\nif (fallback) {\n    msg.payload = Number(fallback[1]);\n    return msg;\n}\n\nmsg.payload = null;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 480,
+        "wires": [
+            [
+                "dc0ebf4a0386359c"
+            ]
+        ]
+    },
+    {
+        "id": "f732c8b638df108f",
+        "type": "inject",
+        "z": "a0bd36790f71e656",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 210,
+        "y": 480,
+        "wires": [
+            [
+                "2d543b7922720e64"
+            ]
+        ]
+    },
+    {
+        "id": "a90aaeb470b3c012",
+        "type": "inject",
+        "z": "a0bd36790f71e656",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 210,
+        "y": 560,
+        "wires": [
+            [
+                "d5a58cb0a5e9e8e9"
+            ]
+        ]
+    },
+    {
+        "id": "d5a58cb0a5e9e8e9",
+        "type": "exec",
+        "z": "a0bd36790f71e656",
+        "command": "hostname",
+        "addpay": false,
+        "append": "-I",
+        "useSpawn": "",
+        "timer": "",
+        "name": "Get Local IP",
+        "x": 430,
+        "y": 560,
+        "wires": [
+            [
+                "27276642fb79cf9a"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "480d888e621fb5ee",
+        "type": "ui-text",
+        "z": "a0bd36790f71e656",
+        "group": "5f9daa5b3dd1596d",
+        "order": 1,
+        "width": "3",
+        "height": "1",
+        "name": "",
+        "label": "IP-1 Address",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": true,
+        "font": "Arial,Arial,Helvetica,sans-serif",
+        "fontSize": "22",
+        "color": "#000000",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 970,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "0cf5b6a902e1236d",
+        "type": "string",
+        "z": "a0bd36790f71e656",
+        "name": "Integar",
+        "methods": [
+            {
+                "name": "toInteger",
+                "params": []
+            }
+        ],
+        "prop": "payload",
+        "propout": "payload",
+        "object": "msg",
+        "objectout": "msg",
+        "x": 950,
+        "y": 180,
+        "wires": [
+            [
+                "b4898c12bbc6f7f0"
+            ]
+        ]
+    },
+    {
+        "id": "956416f50edfe9b2",
+        "type": "string",
+        "z": "a0bd36790f71e656",
+        "name": "Integar",
+        "methods": [
+            {
+                "name": "toInteger",
+                "params": []
+            }
+        ],
+        "prop": "payload",
+        "propout": "payload",
+        "object": "msg",
+        "objectout": "msg",
+        "x": 600,
+        "y": 240,
+        "wires": [
+            [
+                "631951d757f4b4a0"
+            ]
+        ]
+    },
+    {
+        "id": "929536c9749b4910",
+        "type": "string",
+        "z": "a0bd36790f71e656",
+        "name": "Integar",
+        "methods": [
+            {
+                "name": "toInteger",
+                "params": []
+            }
+        ],
+        "prop": "payload",
+        "propout": "payload",
+        "object": "msg",
+        "objectout": "msg",
+        "x": 600,
+        "y": 300,
+        "wires": [
+            [
+                "c220d0e10f641ae8"
+            ]
+        ]
+    },
+    {
+        "id": "dc0ebf4a0386359c",
+        "type": "string",
+        "z": "a0bd36790f71e656",
+        "name": "Integar",
+        "methods": [
+            {
+                "name": "toInteger",
+                "params": []
+            }
+        ],
+        "prop": "payload",
+        "propout": "payload",
+        "object": "msg",
+        "objectout": "msg",
+        "x": 760,
+        "y": 480,
+        "wires": [
+            [
+                "6fe7a0c194f8c988"
+            ]
+        ]
+    },
+    {
+        "id": "28e09dd24b1b7f04",
+        "type": "function",
+        "z": "a0bd36790f71e656",
+        "name": "",
+        "func": "str = msg.payload\nmsg.payload = str.substring(5,9);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 600,
+        "y": 180,
+        "wires": [
+            [
+                "30625b053842a151"
+            ]
+        ]
+    },
+    {
+        "id": "27276642fb79cf9a",
+        "type": "function",
+        "z": "a0bd36790f71e656",
+        "name": "IP Address Sparce",
+        "func": "\n// @ts-nocheck\n/**\n * Node-RED Function: Extract first two IPv4 addresses from a string\n *\n * Input:\n *   msg.payload (string) e.g.\n *   \"192.168.70.116 100.79.140.14 fd54:... fd7a:...\"\n *\n * Output:\n *   msg.payload = {\n *     ipv4_1: \"192.168.70.116\",\n *     ipv4_2: \"100.79.140.14\"\n *   }\n *\n * Notes:\n * - Uses an IPv4 regex where each octet is 1–3 digits (as requested).\n * - Discards the rest (IPv6, etc.).\n * - If fewer than 2 IPv4s are found, missing fields are omitted.\n */\n\n// Ensure we have a string to parse\nconst s = (msg.payload ?? \"\").toString();\n\n// IPv4 pattern: 4 groups of 1–3 digits separated by dots\n// (Not validating 0–255 ranges since you asked for 1–3 digit octets.)\nconst IPV4_RE = /\\b(?:\\d{1,3}\\.){3}\\d{1,3}\\b/g;\n\nconst matches = s.match(IPV4_RE) || [];\n\nconst out = {};\nif (matches[0]) out.ipv4_1 = matches[0];\nif (matches[1]) out.ipv4_2 = matches[1];\n\n// Put only the parsed IPv4s on msg.payload\nmsg.payload = out;\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 560,
+        "wires": [
+            [
+                "bc091f98baadb7a9",
+                "1eb2dcd0eefceb30"
+            ]
+        ]
+    },
+    {
+        "id": "bc091f98baadb7a9",
+        "type": "change",
+        "z": "a0bd36790f71e656",
+        "name": "ipv4_1",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.ipv4_1",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 810,
+        "y": 560,
+        "wires": [
+            [
+                "480d888e621fb5ee"
+            ]
+        ]
+    },
+    {
+        "id": "26d26ab5b100af0c",
+        "type": "ui-text",
+        "z": "a0bd36790f71e656",
+        "group": "5f9daa5b3dd1596d",
+        "order": 2,
+        "width": "4",
+        "height": "1",
+        "name": "",
+        "label": "IP-2  Address",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": true,
+        "font": "Arial,Arial,Helvetica,sans-serif",
+        "fontSize": "22",
+        "color": "#000000",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 970,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "1eb2dcd0eefceb30",
+        "type": "change",
+        "z": "a0bd36790f71e656",
+        "name": "ipv4_2",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.ipv4_2",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 810,
+        "y": 620,
+        "wires": [
+            [
+                "26d26ab5b100af0c"
+            ]
+        ]
+    },
+    {
+        "id": "30625b053842a151",
+        "type": "unit-converter",
+        "z": "a0bd36790f71e656",
+        "category": "temperature",
+        "inputUnit": "C",
+        "outputUnit": "F",
+        "inputField": "payload",
+        "outputField": "payload",
+        "inputFieldType": "msg",
+        "outputFieldType": "msg",
+        "roundOutputField": false,
+        "outputFieldDecimals": 2,
+        "statusType": "none",
+        "name": "",
+        "x": 780,
+        "y": 180,
+        "wires": [
+            [
+                "0cf5b6a902e1236d"
+            ]
+        ]
+    },
+    {
+        "id": "b4898c12bbc6f7f0",
+        "type": "ui-gauge-classic",
+        "z": "a0bd36790f71e656",
+        "name": "temperature",
+        "group": "cfd968d72beeb9fd",
+        "order": 4,
+        "width": "2",
+        "height": "2",
+        "min": "80",
+        "max": "180",
+        "sectors": [
+            {
+                "start": "80",
+                "color": "green"
+            },
+            {
+                "start": "155",
+                "color": "yellow"
+            },
+            {
+                "start": "180",
+                "color": "red"
+            }
+        ],
+        "major_division": "10",
+        "minor_division": "5",
+        "value_decimal_places": 1,
+        "scale_decimal_places": 0,
+        "label": "TEMPERATURE °F",
+        "measurement": "°F",
+        "units": "",
+        "needles": [
+            {
+                "topic": "",
+                "color": "red",
+                "lengthPercent": "100"
+            }
+        ],
+        "hubcolor": "black",
+        "sweep_angle": "180",
+        "keepwidth": true,
+        "myclass": "",
+        "x": 1130,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "631951d757f4b4a0",
+        "type": "ui-gauge-classic",
+        "z": "a0bd36790f71e656",
+        "name": "CPU",
+        "group": "cfd968d72beeb9fd",
+        "order": 2,
+        "width": "2",
+        "height": "2",
+        "min": "0",
+        "max": "40",
+        "sectors": [
+            {
+                "start": "0",
+                "color": "green"
+            },
+            {
+                "start": "16",
+                "color": "yellow"
+            },
+            {
+                "start": "25",
+                "color": "red"
+            }
+        ],
+        "major_division": "5",
+        "minor_division": "2.5",
+        "value_decimal_places": 1,
+        "scale_decimal_places": 0,
+        "label": "CPU",
+        "measurement": "units",
+        "units": "",
+        "needles": [
+            {
+                "topic": "",
+                "color": "red",
+                "lengthPercent": "100"
+            }
+        ],
+        "hubcolor": "black",
+        "sweep_angle": "180",
+        "keepwidth": true,
+        "myclass": "",
+        "x": 770,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "c220d0e10f641ae8",
+        "type": "ui-gauge-classic",
+        "z": "a0bd36790f71e656",
+        "name": "Memory Used",
+        "group": "cfd968d72beeb9fd",
+        "order": 3,
+        "width": "2",
+        "height": "2",
+        "min": "0",
+        "max": "100",
+        "sectors": [
+            {
+                "start": "0",
+                "color": "green"
+            },
+            {
+                "start": "50",
+                "color": "yellow"
+            },
+            {
+                "start": "75",
+                "color": "red"
+            }
+        ],
+        "major_division": "20",
+        "minor_division": "10",
+        "value_decimal_places": 1,
+        "scale_decimal_places": 0,
+        "label": "MEMORY USED",
+        "measurement": "%",
+        "units": "",
+        "needles": [
+            {
+                "topic": "",
+                "color": "red",
+                "lengthPercent": "100"
+            }
+        ],
+        "hubcolor": "black",
+        "sweep_angle": "180",
+        "keepwidth": true,
+        "myclass": "",
+        "x": 800,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "6fe7a0c194f8c988",
+        "type": "ui-gauge-classic",
+        "z": "a0bd36790f71e656",
+        "name": "DISK SPACE",
+        "group": "cfd968d72beeb9fd",
+        "order": 1,
+        "width": "2",
+        "height": "2",
+        "min": "0",
+        "max": "100",
+        "sectors": [
+            {
+                "start": "0",
+                "color": "green"
+            },
+            {
+                "start": "60",
+                "color": "yellow"
+            },
+            {
+                "start": "90",
+                "color": "red"
+            }
+        ],
+        "major_division": "20",
+        "minor_division": "10",
+        "value_decimal_places": 1,
+        "scale_decimal_places": 0,
+        "label": "DISK SPACE",
+        "measurement": "%",
+        "units": "",
+        "needles": [
+            {
+                "topic": "",
+                "color": "red",
+                "lengthPercent": "100"
+            }
+        ],
+        "hubcolor": "black",
+        "sweep_angle": "180",
+        "keepwidth": true,
+        "myclass": "",
+        "x": 930,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "27c062b7abef6884",
+        "type": "ui-template",
+        "z": "a0bd36790f71e656",
+        "group": "5f9daa5b3dd1596d",
+        "page": "",
+        "ui": "",
+        "name": "Close",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "head": "",
+        "format": "<template>\n    <div style=\"display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;\">\n        <v-btn color=\"primary\" @click=\"closeTab\">\n            Close Tab\n        </v-btn>\n    </div>\n</template>\n\n<script>\n    export default {\n    methods: {\n        closeTab() {\n            window.close();\n        }\n    }\n}\n</script>",
+        "storeOutMessages": true,
+        "passthru": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 310,
+        "y": 760,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d34e9ebcb0491498",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "@flowfuse/node-red-dashboard": "1.30.2",
+            "node-red-dashboard": "3.6.6",
+            "node-red-contrib-string": "1.0.0",
+            "node-red-contrib-unit-converter": "0.0.3",
+            "@colinl/node-red-dashboard-2-ui-gauge-classic": "1.4.0"
+        }
+    }
+]
