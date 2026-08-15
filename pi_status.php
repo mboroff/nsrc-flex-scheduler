@@ -34,10 +34,10 @@ if (empty($_SESSION['pi_status_csrf'])) {
 function run_pi_power_action(string $action): array {
     // Fixed, hardcoded argument lists - nothing from the request is ever
     // placed into these. Matches the sudoers grant in README.md
-    // ("www-data ALL=(root) NOPASSWD: /sbin/reboot, /sbin/shutdown -h now").
+    // ("www-data ALL=(root) NOPASSWD: /sbin/reboot, /sbin/shutdown -h").
     $helpers = [
         'reboot'   => ['/sbin/reboot'],
-        'shutdown' => ['/sbin/shutdown', '-h', 'now'],
+        'shutdown' => ['/sbin/shutdown', '-h'],
     ];
 
     if (!isset($helpers[$action])) {
@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($ok) {
             $actionMessage = $action === 'reboot'
                 ? 'Reboot request accepted. The Pi will restart shortly; this page and the site will be briefly unreachable.'
-                : 'Shutdown request accepted. The Pi will power off shortly; the site will be unreachable until it is turned back on.';
+                : 'Shutdown request accepted. The Pi will power off in about one minute; the site will be unreachable until it is turned back on.';
         } else {
             $actionError = $error;
         }
@@ -88,10 +88,11 @@ function run_command(string $cmd): ?string {
 
 // Read the kernel thermal-zone value directly.  This avoids depending on
 // vcgencmd being in Apache's PATH or executable by the www-data account.
-$tempC = null;
+$tempF = null;
 $tempRaw = @file_get_contents('/sys/class/thermal/thermal_zone0/temp');
 if ($tempRaw !== false && is_numeric(trim($tempRaw))) {
     $tempC = (float) trim($tempRaw) / 1000;
+    $tempF = $tempC * 9 / 5 + 32;
 }
 
 $cpuPercent = null;
@@ -130,7 +131,7 @@ require_once __DIR__ . '/includes/header.php';
     <div class="pi-gauges">
         <?php
         $gauges = [
-            ['label' => 'Temperature', 'value' => $tempC, 'unit' => '&deg;C', 'max' => 100],
+            ['label' => 'Temperature', 'value' => $tempF, 'unit' => '&deg;F', 'max' => 200],
             ['label' => 'CPU Load', 'value' => $cpuPercent, 'unit' => '%', 'max' => 100],
             ['label' => 'Memory Usage', 'value' => $memPercent, 'unit' => '%', 'max' => 100],
             ['label' => 'Disk Usage', 'value' => $diskPercent, 'unit' => '%', 'max' => 100],
@@ -151,6 +152,7 @@ require_once __DIR__ . '/includes/header.php';
     </div>
 
     <div class="actions-row" style="margin-top:24px;">
+        <a class="btn btn-secondary" href="pi_status.php">Refresh</a>
         <button type="button" class="btn btn-secondary" onclick="confirmPiAction('reboot', 'Reboot the Pi now?')">Reboot</button>
         <button type="button" class="btn btn-danger" onclick="confirmPiAction('shutdown', 'Shut down the Pi now?')">Shutdown</button>
     </div>
