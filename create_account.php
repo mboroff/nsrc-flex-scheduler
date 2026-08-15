@@ -31,6 +31,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($check->fetch()) {
             $error = 'That Call Sign already has an account.';
+        } elseif ($callSign === ADMIN_CALL_SIGN) {
+            // The super-admin Call Sign is exempt from the membership
+            // list check, since they need to be able to create their
+            // account even before/without appearing on the roster.
+            $now  = date('Y-m-d H:i:s');
+            $hash = password_hash($password, PASSWORD_DEFAULT);
+
+            $insert = $db->prepare(
+                'INSERT INTO users (call_sign, password_hash, email, first_name, last_name,
+                                     street_address, city, state, zip_code, phone_number,
+                                     created_at, updated_at)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+            );
+            $insert->execute([$callSign, $hash, $email, $firstName, $lastName,
+                               $street, $city, $state, $zip, $phone, $now, $now]);
+
+            header('Location: index.php?msg=account_created');
+            exit;
         } else {
             $memberCheck = $db->prepare('SELECT is_current FROM members WHERE call_sign = ?');
             $memberCheck->execute([$callSign]);
