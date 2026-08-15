@@ -29,6 +29,21 @@ group, built to run on a Raspberry Pi with Apache already installed.
 | `css/style.css` | Site styling |
 | `images/*.png` | Radio photos |
 
+## Install Script
+
+Below is the full install of the NSRC Flex-Cadre Radio Scheduling site from scratch. Once you have imaged a Raspberry Pi, issue the following command at the command prompt to start the install. This script takes 15–20 mins to run on a Pi4.
+
+```bash
+bash <(curl -sL https://raw.githubusercontent.com/mboroff/nsrc-flex-scheduler/main/install.sh)
+```
+
+This installs and configures Node-RED, Apache, MariaDB, PHP (with the
+`pdo_sqlite` extension), clones the scheduler flows and this web site
+from GitHub, initializes the database, and sets up the sudoers rule
+needed for the Pi Status Reboot/Shutdown buttons. See the sections
+below for what to do manually if you're setting things up step by step
+instead, or updating an existing install.
+
 ## 1. Install PHP (if not already present)
 
 Apache serves the pages, but you need PHP with the SQLite3/PDO extension:
@@ -98,8 +113,13 @@ http://<your-pi-ip-address>/nsrc-flex/
   from, and there's no page that displays it.
 - **Create Account** (`create_account.php`): requires Call Sign, Password,
   Verify Password (must match), and Email. Rejects duplicate Call Signs.
-  Stores `created_at`/`updated_at` timestamps from the server clock —
-  these are saved in the database but never shown in the UI.
+  For every Call Sign except the super-admin (**WD9GYM**), the Call Sign
+  must also appear on the club membership roster (`members` table) with
+  current dues, or account creation is rejected. **WD9GYM is exempt from
+  the membership check** - it can always create its account, regardless
+  of roster status, so the super-admin is never locked out. Stores
+  `created_at`/`updated_at` timestamps from the server clock — these are
+  saved in the database but never shown in the UI.
 - **Change Password** (`change_password.php`): asks for Call Sign, Old
   Password, New Password, Confirm New Password. Verifies the old password
   against the database, requires New = Confirm, then updates the stored
