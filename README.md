@@ -185,6 +185,16 @@ http://<your-pi-ip-address>/nsrc-flex/
   password hashing) is identical either way. Stores
   `created_at`/`updated_at` timestamps from the server clock — these are
   saved in the database but never shown in the UI.
+  - **State** is a `<select>` dropdown of all 50 states plus DC, stored
+    as the 2-letter abbreviation - no free-text entry, so it can't drift
+    out of sync with what's shown elsewhere (admin.php, etc).
+  - **Zip Code autofill**: as soon as a valid 5-digit Zip is entered, a
+    small script in the page calls the free, keyless
+    `api.zippopotam.us` lookup (runs in the member's own browser, so it
+    works even though the Pi itself may have no outbound internet
+    access) and fills in City and the matching State. Both fields stay
+    editable afterward in case the lookup is wrong, unavailable, or the
+    Zip covers more than one town.
 - **Change Password** (`change_password.php`): asks for Call Sign, Old
   Password, New Password, Confirm New Password. Verifies the old password
   against the database, requires New = Confirm, then updates the stored
@@ -222,7 +232,10 @@ to the calendar.
 - **Update**: change Call Sign and/or Email inline; leave New Password
   blank to keep the current password, or type one to reset it. Renaming
   to a Call Sign already used by another account is rejected with an
-  error instead of silently overwriting anything.
+  error instead of silently overwriting anything. Note: unlike
+  `create_account.php`, the State field here is still free text rather
+  than the 50-state dropdown, and there's no Zip autofill - worth
+  bringing in line if this becomes confusing to admins.
 - **Delete**: asks for a Y/N confirmation, then removes the account.
   The admin cannot delete the account they're currently logged in as -
   that row's Delete button is disabled. **WD9GYM's account can never be
