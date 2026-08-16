@@ -80,6 +80,22 @@ if (!$account) {
 }
 
 require_once __DIR__ . '/includes/header.php';
+
+$usStates = [
+    'AL' => 'Alabama', 'AK' => 'Alaska', 'AZ' => 'Arizona', 'AR' => 'Arkansas',
+    'CA' => 'California', 'CO' => 'Colorado', 'CT' => 'Connecticut', 'DE' => 'Delaware',
+    'DC' => 'District of Columbia', 'FL' => 'Florida', 'GA' => 'Georgia', 'HI' => 'Hawaii',
+    'ID' => 'Idaho', 'IL' => 'Illinois', 'IN' => 'Indiana', 'IA' => 'Iowa',
+    'KS' => 'Kansas', 'KY' => 'Kentucky', 'LA' => 'Louisiana', 'ME' => 'Maine',
+    'MD' => 'Maryland', 'MA' => 'Massachusetts', 'MI' => 'Michigan', 'MN' => 'Minnesota',
+    'MS' => 'Mississippi', 'MO' => 'Missouri', 'MT' => 'Montana', 'NE' => 'Nebraska',
+    'NV' => 'Nevada', 'NH' => 'New Hampshire', 'NJ' => 'New Jersey', 'NM' => 'New Mexico',
+    'NY' => 'New York', 'NC' => 'North Carolina', 'ND' => 'North Dakota', 'OH' => 'Ohio',
+    'OK' => 'Oklahoma', 'OR' => 'Oregon', 'PA' => 'Pennsylvania', 'RI' => 'Rhode Island',
+    'SC' => 'South Carolina', 'SD' => 'South Dakota', 'TN' => 'Tennessee', 'TX' => 'Texas',
+    'UT' => 'Utah', 'VT' => 'Vermont', 'VA' => 'Virginia', 'WA' => 'Washington',
+    'WV' => 'West Virginia', 'WI' => 'Wisconsin', 'WY' => 'Wyoming',
+];
 ?>
 <main>
     <h2>My Account</h2>
@@ -113,14 +129,23 @@ require_once __DIR__ . '/includes/header.php';
         <label for="street_address">Street Address</label>
         <input type="text" id="street_address" name="street_address" required value="<?php echo h($account['street_address']); ?>">
 
+        <label for="zip_code">Zip Code</label>
+        <input type="text" id="zip_code" name="zip_code" required inputmode="numeric"
+               maxlength="5" autocomplete="postal-code"
+               value="<?php echo h($account['zip_code']); ?>">
+        <span id="zip_status" style="display:block;font-size:0.85rem;color:#55677d;"></span>
+
         <label for="city">City</label>
         <input type="text" id="city" name="city" required value="<?php echo h($account['city']); ?>">
 
         <label for="state">State</label>
-        <input type="text" id="state" name="state" required value="<?php echo h($account['state']); ?>">
-
-        <label for="zip_code">Zip Code</label>
-        <input type="text" id="zip_code" name="zip_code" required value="<?php echo h($account['zip_code']); ?>">
+        <?php $currentState = strtoupper(trim($account['state'])); ?>
+        <select id="state" name="state" required>
+            <option value="">-- Select State --</option>
+            <?php foreach ($usStates as $abbr => $name): ?>
+                <option value="<?php echo h($abbr); ?>" <?php echo $currentState === $abbr ? 'selected' : ''; ?>><?php echo h($name); ?> (<?php echo h($abbr); ?>)</option>
+            <?php endforeach; ?>
+        </select>
 
         <label for="phone_number">Phone Number</label>
         <input type="text" id="phone_number" name="phone_number" required value="<?php echo h($account['phone_number']); ?>">
@@ -140,5 +165,58 @@ require_once __DIR__ . '/includes/header.php';
     <div class="actions-row">
         <a class="btn btn-secondary" href="schedule.php">Return to Calendar</a>
     </div>
+
+    <script>
+        // Same free, keyless api.zippopotam.us City/State autofill used
+        // on create_account.php and admin.php. Runs in the member's own
+        // browser, so it works even if the Pi itself has no outbound
+        // internet access. Both fields stay editable afterward.
+        (function () {
+            var zipInput = document.getElementById('zip_code');
+            var cityInput = document.getElementById('city');
+            var stateSelect = document.getElementById('state');
+            var statusEl = document.getElementById('zip_status');
+            var lastLookedUp = '';
+
+            function lookupZip() {
+                var zip = zipInput.value.trim();
+                if (!/^\d{5}$/.test(zip) || zip === lastLookedUp) {
+                    return;
+                }
+                lastLookedUp = zip;
+                statusEl.textContent = 'Looking up city/state...';
+
+                fetch('https://api.zippopotam.us/us/' + zip)
+                    .then(function (response) {
+                        if (!response.ok) {
+                            throw new Error('not found');
+                        }
+                        return response.json();
+                    })
+                    .then(function (data) {
+                        var place = data.places && data.places[0];
+                        if (!place) {
+                            throw new Error('no place data');
+                        }
+                        cityInput.value = place['place name'];
+                        var abbr = place['state abbreviation'];
+                        if (abbr && stateSelect.querySelector('option[value="' + abbr + '"]')) {
+                            stateSelect.value = abbr;
+                        }
+                        statusEl.textContent = 'City and State filled in \u2014 feel free to correct if needed.';
+                    })
+                    .catch(function () {
+                        statusEl.textContent = 'Could not look up that Zip Code \u2014 please enter City and State manually.';
+                    });
+            }
+
+            zipInput.addEventListener('blur', lookupZip);
+            zipInput.addEventListener('input', function () {
+                if (/^\d{5}$/.test(zipInput.value.trim())) {
+                    lookupZip();
+                }
+            });
+        })();
+    </script>
 </main>
 <?php require_once __DIR__ . '/includes/footer.php'; ?>
