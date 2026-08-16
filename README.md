@@ -232,10 +232,10 @@ to the calendar.
 - **Update**: change Call Sign and/or Email inline; leave New Password
   blank to keep the current password, or type one to reset it. Renaming
   to a Call Sign already used by another account is rejected with an
-  error instead of silently overwriting anything. Note: unlike
-  `create_account.php`, the State field here is still free text rather
-  than the 50-state dropdown, and there's no Zip autofill - worth
-  bringing in line if this becomes confusing to admins.
+  error instead of silently overwriting anything. **State** is a
+  dropdown (same 50 states + DC as `create_account.php`) and **Zip**
+  gets the same `api.zippopotam.us` City/State autofill, wired up
+  independently for each row in the table.
 - **Delete**: asks for a Y/N confirmation, then removes the account.
   The admin cannot delete the account they're currently logged in as -
   that row's Delete button is disabled. **WD9GYM's account can never be

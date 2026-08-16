@@ -121,6 +121,22 @@ unset($_SESSION['flash_error'], $_SESSION['flash_success']);
 
 $users = $db->query('SELECT * FROM users ORDER BY call_sign')->fetchAll(PDO::FETCH_ASSOC);
 
+$usStates = [
+    'AL' => 'Alabama', 'AK' => 'Alaska', 'AZ' => 'Arizona', 'AR' => 'Arkansas',
+    'CA' => 'California', 'CO' => 'Colorado', 'CT' => 'Connecticut', 'DE' => 'Delaware',
+    'DC' => 'District of Columbia', 'FL' => 'Florida', 'GA' => 'Georgia', 'HI' => 'Hawaii',
+    'ID' => 'Idaho', 'IL' => 'Illinois', 'IN' => 'Indiana', 'IA' => 'Iowa',
+    'KS' => 'Kansas', 'KY' => 'Kentucky', 'LA' => 'Louisiana', 'ME' => 'Maine',
+    'MD' => 'Maryland', 'MA' => 'Massachusetts', 'MI' => 'Michigan', 'MN' => 'Minnesota',
+    'MS' => 'Mississippi', 'MO' => 'Missouri', 'MT' => 'Montana', 'NE' => 'Nebraska',
+    'NV' => 'Nevada', 'NH' => 'New Hampshire', 'NJ' => 'New Jersey', 'NM' => 'New Mexico',
+    'NY' => 'New York', 'NC' => 'North Carolina', 'ND' => 'North Dakota', 'OH' => 'Ohio',
+    'OK' => 'Oklahoma', 'OR' => 'Oregon', 'PA' => 'Pennsylvania', 'RI' => 'Rhode Island',
+    'SC' => 'South Carolina', 'SD' => 'South Dakota', 'TN' => 'Tennessee', 'TX' => 'Texas',
+    'UT' => 'Utah', 'VT' => 'Vermont', 'VA' => 'Virginia', 'WA' => 'Washington',
+    'WV' => 'West Virginia', 'WI' => 'Wisconsin', 'WY' => 'Wyoming',
+];
+
 require_once __DIR__ . '/includes/header.php';
 ?>
 <main style="max-width:1140px;">
@@ -224,14 +240,25 @@ require_once __DIR__ . '/includes/header.php';
                         <span class="admin-subfield">Street
                             <input form="upd-<?php echo $id; ?>" type="text" name="street_address" placeholder="Street Address" value="<?php echo h($u['street_address'] ?? ''); ?>">
                         </span>
+                        <span class="admin-subfield">Zip
+                            <input form="upd-<?php echo $id; ?>" type="text" name="zip_code" placeholder="Zip"
+                                   class="zip-lookup" id="zip-<?php echo $id; ?>"
+                                   data-city-target="city-<?php echo $id; ?>" data-state-target="state-<?php echo $id; ?>"
+                                   inputmode="numeric" maxlength="5" autocomplete="postal-code"
+                                   value="<?php echo h($u['zip_code'] ?? ''); ?>">
+                        </span>
                         <span class="admin-subfield">City
-                            <input form="upd-<?php echo $id; ?>" type="text" name="city" placeholder="City" value="<?php echo h($u['city'] ?? ''); ?>">
+                            <input form="upd-<?php echo $id; ?>" type="text" name="city" placeholder="City"
+                                   id="city-<?php echo $id; ?>" value="<?php echo h($u['city'] ?? ''); ?>">
                         </span>
                         <span class="admin-subfield">State
-                            <input form="upd-<?php echo $id; ?>" type="text" name="state" placeholder="State" value="<?php echo h($u['state'] ?? ''); ?>">
-                        </span>
-                        <span class="admin-subfield">Zip
-                            <input form="upd-<?php echo $id; ?>" type="text" name="zip_code" placeholder="Zip" value="<?php echo h($u['zip_code'] ?? ''); ?>">
+                            <?php $rowState = strtoupper(trim($u['state'] ?? '')); ?>
+                            <select form="upd-<?php echo $id; ?>" name="state" id="state-<?php echo $id; ?>">
+                                <option value="">--</option>
+                                <?php foreach ($usStates as $abbr => $name): ?>
+                                    <option value="<?php echo h($abbr); ?>" <?php echo $rowState === $abbr ? 'selected' : ''; ?>><?php echo h($abbr); ?></option>
+                                <?php endforeach; ?>
+                            </select>
                         </span>
                     </td>
                 </tr>
@@ -244,6 +271,53 @@ require_once __DIR__ . '/includes/header.php';
         <a class="btn btn-secondary" href="schedule.php">Back to Calendar</a>
         <a class="btn btn-secondary" href="logout.php">Log Out</a>
     </div>
+
+    <script>
+        // Zip -> City/State autofill, same free keyless api.zippopotam.us
+        // lookup used on create_account.php, wired up for every row's
+        // Zip field on this page.
+        (function () {
+            var zipInputs = document.querySelectorAll('.zip-lookup');
+            zipInputs.forEach(function (zipInput) {
+                var lastLookedUp = '';
+                function lookupZip() {
+                    var zip = zipInput.value.trim();
+                    if (!/^\d{5}$/.test(zip) || zip === lastLookedUp) {
+                        return;
+                    }
+                    lastLookedUp = zip;
+                    var cityInput = document.getElementById(zipInput.dataset.cityTarget);
+                    var stateSelect = document.getElementById(zipInput.dataset.stateTarget);
+
+                    fetch('https://api.zippopotam.us/us/' + zip)
+                        .then(function (response) {
+                            if (!response.ok) { throw new Error('not found'); }
+                            return response.json();
+                        })
+                        .then(function (data) {
+                            var place = data.places && data.places[0];
+                            if (!place) { throw new Error('no place data'); }
+                            cityInput.value = place['place name'];
+                            var abbr = place['state abbreviation'];
+                            if (abbr && stateSelect.querySelector('option[value="' + abbr + '"]')) {
+                                stateSelect.value = abbr;
+                            }
+                        })
+                        .catch(function () {
+                            // Silently leave City/State as-is (admin can
+                            // still type them manually) rather than
+                            // interrupting the admin table with an error.
+                        });
+                }
+                zipInput.addEventListener('blur', lookupZip);
+                zipInput.addEventListener('input', function () {
+                    if (/^\d{5}$/.test(zipInput.value.trim())) {
+                        lookupZip();
+                    }
+                });
+            });
+        })();
+    </script>
 
     <div class="actions-row">
         <form method="post" action="admin.php"
