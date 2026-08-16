@@ -51,13 +51,27 @@ function apt_update_or_die {
 
 # apt-get install can also fail (missing package index, network
 # hiccup, etc). Check the exit code explicitly instead of letting a
-# failure pass silently into later steps that assume it worked.
+# failure pass silently into later steps that assume it worked. If it
+# fails, try one full apt index rebuild (wipe /var/lib/apt/lists and
+# re-update) before giving up - this fixed a real-world case where
+# apt-get update reported success but the index was still stale/broken.
 function apt_install_or_die {
-  if ! sudo apt-get install -y -qq "$@" > /tmp/apt_install_err 2>&1; then
-    echo "ERROR: failed to install: $*"
-    cat /tmp/apt_install_err
-    exit 1
+  if sudo apt-get install -y -qq "$@" > /tmp/apt_install_err 2>&1; then
+    return 0
   fi
+
+  echo "Install of '$*' failed, rebuilding apt package index and retrying..."
+  sudo rm -rf /var/lib/apt/lists/*
+  sudo apt-get clean
+  apt_update_or_die
+
+  if sudo apt-get install -y -qq "$@" > /tmp/apt_install_err 2>&1; then
+    return 0
+  fi
+
+  echo "ERROR: failed to install: $*"
+  cat /tmp/apt_install_err
+  exit 1
 }
 
 # Variables
