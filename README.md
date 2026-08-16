@@ -225,8 +225,11 @@ to the calendar.
   error instead of silently overwriting anything.
 - **Delete**: asks for a Y/N confirmation, then removes the account.
   The admin cannot delete the account they're currently logged in as -
-  that row's Delete button is disabled. Deleting an account does **not**
-  delete that member's existing reservations - see below.
+  that row's Delete button is disabled. **WD9GYM's account can never be
+  deleted** through this page, regardless of who's logged in as admin -
+  the same protection that already applied to granting/revoking admin
+  status. Deleting an account does **not** delete that member's existing
+  reservations - see below.
 
 ## Reservations outlive the account that made them
 
@@ -237,11 +240,21 @@ All Reservations) even after that account is gone. The database no
 longer enforces a foreign key between reservations and users for this
 reason - it's deliberate, not an oversight.
 
+Because of this, reservations are tied to a Call Sign, not to a
+numeric account ID: if an account is deleted and someone later creates
+a new account with that same Call Sign, the old reservations reappear
+under that new account's My Reservations page, exactly as if the
+account had never been deleted.
+
 ## My Reservations / All Reservations
 
 Two buttons on the calendar page:
 - **My Reservations** (`my_reservations.php`) - every slot booked under
-  the logged-in Call Sign, soonest first.
+  the logged-in Call Sign, soonest first. Matched by Call Sign (via the
+  same `call_sign_snapshot` fallback as All Reservations, below), not by
+  the numeric account ID - so if an account is deleted and later
+  recreated with the same Call Sign, its old reservations still show up
+  here rather than only under All Reservations.
 - **All Reservations** (`all_reservations.php`) - every booking by
   everyone in the group, soonest first, with the Call Sign shown for
   each (via the snapshot if that account has since been deleted).

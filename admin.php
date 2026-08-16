@@ -55,7 +55,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if ($action === 'delete') {
-        if ($userId === (int) $_SESSION['user_id']) {
+        $target = $db->prepare('SELECT call_sign FROM users WHERE id = ?');
+        $target->execute([$userId]);
+        $targetUser = $target->fetch(PDO::FETCH_ASSOC);
+
+        if (!$targetUser) {
+            $_SESSION['flash_error'] = 'Account not found.';
+        } elseif (strtoupper($targetUser['call_sign']) === ADMIN_CALL_SIGN) {
+            $_SESSION['flash_error'] = 'WD9GYM is always the super-admin and cannot be deleted.';
+        } elseif ($userId === (int) $_SESSION['user_id']) {
             $_SESSION['flash_error'] = 'You cannot delete your own account while logged in as it.';
         } else {
             // Reservations are intentionally left in place - they keep

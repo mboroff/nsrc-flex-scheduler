@@ -12,14 +12,20 @@ if (!isset($_SESSION['user_id'])) {
 $pageTitle = 'My Reservations';
 $db = get_db();
 
+// Matched by Call Sign (falling back to the call_sign_snapshot for
+// reservations whose original user account no longer exists) rather than
+// by user_id alone. This way, if an account is deleted and later
+// recreated with the same Call Sign, its past/upcoming reservations still
+// show up here instead of only under all_reservations.php.
 $stmt = $db->prepare(
-    'SELECT reservations.start_time, reservations.end_time, radios.name AS radio_name
+    "SELECT reservations.start_time, reservations.end_time, radios.name AS radio_name
      FROM reservations
      JOIN radios ON radios.id = reservations.radio_id
-     WHERE reservations.user_id = ?
-     ORDER BY reservations.start_time ASC'
+     LEFT JOIN users ON users.id = reservations.user_id
+     WHERE COALESCE(users.call_sign, reservations.call_sign_snapshot) = ?
+     ORDER BY reservations.start_time ASC"
 );
-$stmt->execute([$_SESSION['user_id']]);
+$stmt->execute([$_SESSION['call_sign']]);
 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $now = new DateTime();
