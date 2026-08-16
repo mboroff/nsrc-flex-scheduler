@@ -1,4 +1,7 @@
 <?php
+// Created by Claude.AI
+// For
+// Marty Boroff - WD9GYM
 /**
  * config.php
  * Shared database connection for the North Shore Radio Club Flex-Cadre site.

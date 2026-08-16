@@ -1,4 +1,7 @@
 <?php
+// Created by Claude.AI
+// For
+// Marty Boroff - WD9GYM
 /**
  * diagnose.php
  * Visit http://<pi-ip>/nsrc-flex/diagnose.php in a browser to see what's

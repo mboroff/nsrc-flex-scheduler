@@ -1,4 +1,7 @@
 <?php
+// Created by Claude.AI
+// For
+// Marty Boroff - WD9GYM
 /**
  * migrate_db.php
  * Run this ONCE on an existing installation to add the new last_login

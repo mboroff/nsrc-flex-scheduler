@@ -44,6 +44,66 @@ needed for the Pi Status Reboot/Shutdown buttons. See the sections
 below for what to do manually if you're setting things up step by step
 instead, or updating an existing install.
 
+### How the web site files get onto the Pi
+
+The Node-RED flows (`src-flx-scheduler-node-red-project` repo) and this
+PHP web site (`nsrc-flex-scheduler` repo) are two separate GitHub
+repositories. The script handles them differently:
+
+- **Node-RED flows**: cloned directly with `git clone` into
+  `~/.node-red/projects/nsrc-flex-scheduler`, since Node-RED just needs
+  the flow files (`flows.json`, `flows_cred.json`) copied into
+  `~/.node-red` and any node dependencies from the project's
+  `package.json` installed there.
+- **Web site**: rather than cloning the web repo's working tree
+  directly into `/var/www/html` (which would also drop a `.git` folder
+  and any non-site files into Apache's web root), the script clones the
+  repo to a scratch location under `/tmp`, expects to find a
+  **`nsrc-scheduler.tar`** archive inside it, and extracts *that* into
+  `/var/www/html`. This keeps the deployed site to exactly the files
+  meant to be served, with no version-control metadata alongside it.
+
+  The steps, in order:
+  1. `cd /var/www/html` and remove the default Apache landing page
+     (`index.html`) if present.
+  2. `git clone` the web site repo into a `/tmp` scratch folder (public
+     repo, plain anonymous HTTPS - no token/auth needed).
+  3. Confirm `nsrc-scheduler.tar` exists inside the cloned folder; if
+     it's missing, the script lists the repo contents and exits with an
+     error rather than continuing with nothing to deploy.
+  4. Copy `nsrc-scheduler.tar` into `/var/www/html`, then delete the
+     `/tmp` scratch clone.
+  5. **Validate before extracting**: run `tar -tf` on the archive first.
+     If GitHub ever served an HTML error/redirect page instead of the
+     real file (wrong path, repo renamed, etc.), this catches it
+     immediately - printing the first 300 bytes of whatever was
+     downloaded - instead of letting `tar -xvf` fail confusingly or
+     silently extract garbage.
+  6. Extract the tar (`sudo tar -xvf nsrc-scheduler.tar`) directly into
+     `/var/www/html`, then remove the tar file. The archive's paths are
+     relative (`./index.php`, etc.) with no wrapping folder, so the
+     files land straight in the web root.
+  7. `chown -R www-data:www-data /var/www/html` so Apache owns
+     everything just deployed.
+  8. Run `init_db.php` as `www-data` to create `db/nsrc_flex.db`, then
+     `chmod 775 db/` so the web server can write to it.
+  9. Explicitly `apt-get install php-sqlite3` and `phpenmod pdo_sqlite`
+     and restart Apache - `init_db.php` can succeed even if the
+     extension isn't actually enabled for live requests, so this step
+     makes sure the running site has it.
+
+  **When updating this repo**, keep `nsrc-scheduler.tar` in sync with
+  the actual site files (rebuild/re-commit it whenever `index.php`,
+  `config.php`, etc. change) - the installer only ever looks at the tar,
+  not the individual files sitting next to it in the repo.
+
+- **Reboot/Shutdown permissions**: after the site is deployed, the
+  script also writes the `www-data ALL=(root) NOPASSWD: /sbin/reboot,
+  /sbin/shutdown -h` sudoers rule needed by `pi_status.php` (see the
+  "Pi Status" section below), validating it with `visudo -c` and
+  removing it again if it fails validation - a broken sudoers.d file
+  could otherwise break `sudo` system-wide.
+
 ## 1. Install PHP (if not already present)
 
 Apache serves the pages, but you need PHP with the SQLite3/PDO extension:
@@ -113,11 +173,16 @@ http://<your-pi-ip-address>/nsrc-flex/
   from, and there's no page that displays it.
 - **Create Account** (`create_account.php`): requires Call Sign, Password,
   Verify Password (must match), and Email. Rejects duplicate Call Signs.
-  For every Call Sign except the super-admin (**WD9GYM**), the Call Sign
-  must also appear on the club membership roster (`members` table) with
-  current dues, or account creation is rejected. **WD9GYM is exempt from
-  the membership check** - it can always create its account, regardless
-  of roster status, so the super-admin is never locked out. Stores
+  For every Call Sign except the super-admin (**WD9GYM**, from
+  `ADMIN_CALL_SIGN` in `config.php`), the Call Sign must also appear on
+  the club membership roster (`members` table) with current dues, or
+  account creation is rejected. **WD9GYM is exempt from the membership
+  check** - an explicit exemption lets that one Call Sign create its
+  account without needing to appear on the roster or have current dues,
+  so the super-admin is never locked out. Every other Call Sign still
+  goes through the existing membership-list check unchanged, and the
+  rest of the account-creation logic (duplicate check, email validation,
+  password hashing) is identical either way. Stores
   `created_at`/`updated_at` timestamps from the server clock — these are
   saved in the database but never shown in the UI.
 - **Change Password** (`change_password.php`): asks for Call Sign, Old

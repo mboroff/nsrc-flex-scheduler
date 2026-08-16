@@ -1,4 +1,7 @@
 <?php
+// Created by Claude.AI
+// For
+// Marty Boroff - WD9GYM
 /**
  * init_db.php
  * Run this ONCE from the command line (or a browser, then delete/rename it)
