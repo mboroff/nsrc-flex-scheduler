@@ -107,6 +107,7 @@ $isSuperAdmin = strtoupper($_SESSION['call_sign']) === ADMIN_CALL_SIGN;
     </table>
 
     <div class="actions-row">
+        <a class="btn btn-secondary" href="welcome.php">Welcome Page</a>
         <a class="btn btn-secondary" href="radio_control.php">Radio Activation</a>
         <a class="btn btn-secondary" href="my_account.php">My Account</a>
         <a class="btn btn-secondary" href="my_reservations.php">My Reservations</a>
