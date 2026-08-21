@@ -37,10 +37,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             $update = get_db()->prepare('UPDATE users SET last_login = ? WHERE id = ?');
             $update->execute([date('Y-m-d H:i:s'), $user['id']]);
 
-            $_SESSION['user_id']   = $user['id'];
-            $_SESSION['call_sign'] = $user['call_sign'];
-            $_SESSION['is_admin']  = ($user['is_admin'] === 'Y');
-            header('Location: schedule.php');
+            $_SESSION['user_id']    = $user['id'];
+            $_SESSION['call_sign']  = $user['call_sign'];
+            $_SESSION['is_admin']   = ($user['is_admin'] === 'Y');
+            $_SESSION['first_name'] = $user['first_name'] ?? '';
+            $_SESSION['last_name']  = $user['last_name'] ?? '';
+            header('Location: welcome.php');
             exit;
         }
     }

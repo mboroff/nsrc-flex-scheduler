@@ -8,7 +8,8 @@ group, built to run on a Raspberry Pi with Apache already installed.
 
 | File | Purpose |
 |---|---|
-| `index.php` | Welcome page + login form |
+| `index.php` | Login form |
+| `welcome.php` | Post-login landing page: time-of-day greeting with the member's name, "What can I do for you today?", and the same action buttons as the calendar page (plus a link to the Scheduling Calendar) |
 | `create_account.php` | New account form, validated against the club membership roster |
 | `change_password.php` | Old/New/Confirm password form |
 | `my_account.php` | Self-service page: view/edit your own profile, requires current password to save |
@@ -16,7 +17,7 @@ group, built to run on a Raspberry Pi with Apache already installed.
 | `members_import.php` | Admin-only: upload the club roster CSV; manually mark a Call Sign current |
 | `migrate_db.php` | Run once on an *existing* install after any update, to bring the database up to date without losing data |
 | `init_db.php` | One-time script that builds a brand-new database file |
-| `schedule.php` | Calendar for the viewed month (&#9664;/&#9654; wedges page between months, "Today" snaps back), click a day → scheduling grid |
+| `schedule.php` | Calendar for the viewed month (&#9664;/&#9654; wedges page between months, "Today" snaps back), click a day → scheduling grid. Reached from the "Scheduling Calendar" button on `welcome.php`; does not link back to `welcome.php` itself |
 | `schedule_day.php` | 24-hour x 5-radio grid for one day; click a cell to reserve/release |
 | `my_reservations.php` | List of the logged-in member's own reservations |
 | `all_reservations.php` | List of every reservation by everyone |
@@ -153,7 +154,17 @@ http://<your-pi-ip-address>/nsrc-flex/
 - **Login** (`index.php`): looks up the Call Sign. If it doesn't exist,
   shows "Call Sign not found." If it exists but the password doesn't match
   the stored hash, shows "Incorrect password." On success, starts a PHP
-  session and goes to `schedule.php`.
+  session (storing the member's first/last name in the session alongside
+  Call Sign and admin status) and goes to `welcome.php`.
+- **Welcome page** (`welcome.php`): the post-login landing page. Shows
+  "Good Morning" / "Good Afternoon" / "Good Evening" (based on the
+  server's current local time) followed by the member's first and last
+  name - falling back to their Call Sign if no name is on file - then
+  "What can I do for you today?" and a row of buttons: Scheduling
+  Calendar, Radio Activation, My Account, My Reservations, All
+  Reservations, and (conditionally) Admin/Pi Status, same rules as
+  below. Radios directly back to `index.php` if there's no active
+  session.
 - **Calendar** (`schedule.php`): shows the viewed month with a wedge on
   each side to page to the previous/next month (`?year=&month=` in the
   URL). Today's date is highlighted only when actually viewing the current
@@ -225,9 +236,9 @@ looks fine, just slightly less distinctive.
 Visiting `admin.php` while logged in as Call Sign **WD9GYM** (any letter
 case - `wd9gym`, `Wd9Gym`, etc. all match) shows every account with every
 field editable in place, plus a Delete button per row. A link to this
-page only appears on the calendar page, and only for that one Call Sign;
-everyone else who tries to open `admin.php` directly is redirected back
-to the calendar.
+page appears on both the welcome page and the calendar page, but only
+for an account with the admin flag set; everyone else who tries to open
+`admin.php` directly is redirected back to the calendar.
 
 - **Update**: change Call Sign and/or Email inline; leave New Password
   blank to keep the current password, or type one to reset it. Renaming
@@ -355,8 +366,8 @@ dynamic DNS name can go here later.
 
 ## Pi Status (super admin only)
 
-A "Pi Status" button appears on the calendar page, but only for WD9GYM
-specifically - not any delegated admin. It shows four live gauges
+A "Pi Status" button appears on both the welcome page and the calendar
+page, but only for WD9GYM specifically - not any delegated admin. It shows four live gauges
 (Temperature, CPU Load, Memory Usage, Disk Usage), a **Refresh** button
 to re-check them on demand, and Reboot/Shutdown buttons behind the same
 Y/N confirmation popup used elsewhere on the site.
