@@ -1,6 +1,6 @@
 #!/bin/bash
 ## ---- install.sh ----- ##
-## Version: 1.5
+## Version: 1.6
 ## Updated: 2026-08-25
 ## ---- Functions ----- ##
 #Create ProgressBar function
@@ -120,7 +120,7 @@ PROJECT_DIR="$PROJECTS_DIR/$PROJECT_NAME"
 
 clear
 ## ---- Initial Questioning ---- ##
-echo "Scheduler Installer - Version 1.5 (Updated 2026-08-25)"
+echo "Scheduler Installer - Version 1.6 (Updated 2026-08-25)"
 printf "Welcome to the Scheduler Installer.\nPlease hit enter to continue. "
 read
 echo "Are you wanting to update Node-Red?"
@@ -185,7 +185,6 @@ bash <(curl -sL https://raw.githubusercontent.com/node-red/linux-installers/mast
 y
 y
 !
-wait
 clear
 echo "**Scheduler Install Status**"
 echo "Updating and Upgrading your Pi to newest standards  Y"
