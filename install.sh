@@ -1,6 +1,6 @@
 #!/bin/bash
 ## ---- install.sh ----- ##
-## Version: 1.7
+## Version: 1.8
 ## Updated: 2026-08-25
 ## ---- Functions ----- ##
 #Create ProgressBar function
@@ -120,7 +120,7 @@ PROJECT_DIR="$PROJECTS_DIR/$PROJECT_NAME"
 
 clear
 ## ---- Initial Questioning ---- ##
-echo "Scheduler Installer - Version 1.7 (Updated 2026-08-25)"
+echo "Scheduler Installer - Version 1.8 (Updated 2026-08-25)"
 printf "Welcome to the Scheduler Installer.\nPlease hit enter to continue. "
 read
 echo "Are you wanting to update Node-Red?"
@@ -337,9 +337,34 @@ fi
 sudo unzip -o "$ZIP_PATH" -d /var/www/html
 rm -f "$ZIP_PATH"
 
-# The tar extracts its files directly into the current directory
-# (paths like ./index.php), not into a wrapping "nsrc-flex" subfolder,
-# so operate on /var/www/html itself.
+# A zip made via macOS Finder's "Compress" wraps the actual site files
+# inside a top-level folder matching the original folder's name (e.g.
+# nsrc-flex-scheduler/index.php instead of just index.php), and also
+# adds a hidden __MACOSX metadata folder alongside it. Detect and flatten
+# that here so index.php etc. end up directly in /var/www/html - not
+# nested a level down, which is what left Apache showing a directory
+# listing instead of the site.
+sudo rm -rf /var/www/html/__MACOSX
+
+if [ ! -f /var/www/html/index.php ]; then
+  echo "Site files are nested in a subfolder (Finder-zip wrapper) - flattening..."
+  WRAPPER_DIR=$(find /var/www/html -maxdepth 2 -name index.php -exec dirname {} \; | head -n1)
+  if [ -z "$WRAPPER_DIR" ]; then
+    echo "ERROR: could not find index.php anywhere under /var/www/html after extraction."
+    echo "Contents of /var/www/html:"
+    ls -la /var/www/html
+    exit 1
+  fi
+  sudo cp -a "$WRAPPER_DIR"/. /var/www/html/
+  # Remove the now-empty wrapper folder (only if it's not /var/www/html itself)
+  if [ "$WRAPPER_DIR" != "/var/www/html" ]; then
+    sudo rm -rf "$WRAPPER_DIR"
+  fi
+fi
+
+# The site files are now directly under /var/www/html (paths like
+# ./index.php), not inside any wrapping subfolder, so operate on
+# /var/www/html itself from here on.
 sudo chown -R www-data:www-data /var/www/html
 sudo -u www-data php /var/www/html/init_db.php
 sudo chmod 775 /var/www/html/db
