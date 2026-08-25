@@ -132,12 +132,21 @@ do
 	ProgressBar ${number} ${_end}
 done &
 bgid=$!
-apt_install_or_die apache2 mariadb-server php php-mysql php-sqlite3 php-cli libapache2-mod-php
+apt_install_or_die apache2 mariadb-server php php-mysql php-sqlite3 php-cli libapache2-mod-php sqlite3
 kill $bgid
 wait
 ProgressBar ${_end} ${_end}
 echo ""
 echo "Install Apache, SQL, & PHP  Y"
+
+# Node-RED's reservation-status check (in the scheduler's flows.json)
+# shells out to the sqlite3 CLI directly rather than a Node-RED
+# database node, so confirm it actually landed on PATH before moving on.
+if ! command -v sqlite3 > /dev/null 2>&1; then
+  echo "ERROR: sqlite3 command-line tool not found after install. The scheduler flows depend on it."
+  exit 1
+fi
+echo "sqlite3 CLI available  Y"
 # -- Enable Apache and MariaDB for auto startup -- #
 sudo systemctl enable --now apache2.service
 sudo systemctl enable --now mariadb.service
@@ -280,6 +289,14 @@ sudo chown -R www-data:www-data /var/www/html
 sudo -u www-data php /var/www/html/init_db.php
 sudo chmod 775 /var/www/html/db
 
+# Node-RED (running as the current user, not www-data) reads this same
+# database directly via the sqlite3 CLI for the reservation-status
+# check in flows.json. Add the current user to the www-data group so
+# it can read the db file/directory without loosening permissions
+# further (db dir is 775, db file is 664 - group-readable is enough).
+echo "Granting $(whoami) read access to the reservations database..."
+sudo usermod -a -G www-data "$(whoami)"
+
 # init_db.php can succeed without the pdo_sqlite extension actually
 # being enabled, but the site's live queries need it at runtime.
 # Explicitly ensure it's enabled and restart Apache to pick it up.
@@ -307,3 +324,19 @@ fi
 echo ""
 echo "Setup has completed. Head to http://$HOSTIP:1880/ui to access Node-Red."
 echo "Head to http://$HOSTIP/ to access the Apache web server."
+echo ""
+echo "IMPORTANT: this session was just added to the www-data group so"
+echo "Node-RED can read the reservations database, but that change does"
+echo "NOT apply to any shell/session already open - including this one."
+echo "You must log out and back in (or reboot) before the radio-status"
+echo "checks in Node-RED will work. A reboot is the safest option since"
+echo "it also confirms Node-RED, Apache, and MariaDB all come back up"
+echo "correctly on their own."
+echo ""
+read -p "Reboot now? (Y/n) " flag_reboot
+if [[ $flag_reboot != 'n' ]] && [[ $flag_reboot != 'N' ]]; then
+  echo "Rebooting..."
+  sudo reboot
+else
+  echo "Skipping reboot - remember to log out/in or reboot manually before testing."
+fi
