@@ -1,6 +1,6 @@
 #!/bin/bash
-## ---- install.sh ----- ## 
-## Version: 1.2
+## ---- install.sh ----- ##
+## Version: 1.3
 ## Updated: 2026-08-25
 ## ---- Functions ----- ##
 #Create ProgressBar function
@@ -92,6 +92,7 @@ PROJECT_DIR="$PROJECTS_DIR/$PROJECT_NAME"
 
 clear
 ## ---- Initial Questioning ---- ##
+echo "Scheduler Installer - Version 1.3 (Updated 2026-08-25)"
 printf "Welcome to the Scheduler Installer.\nPlease hit enter to continue. "
 read
 echo "Are you wanting to update Node-Red?"
@@ -182,9 +183,9 @@ echo "Apache and MariaDB enabled for auto startup  Y"
 
 ## ---- Clone Scheduler project from GitHub (runs last, after all other installs) ---- ##
 echo ""
-echo "Installing Git (if needed)..."
-apt_install_or_die git
-echo "Git install  Y"
+echo "Installing Git and unzip (if needed)..."
+apt_install_or_die git unzip
+echo "Git/unzip install  Y"
 
 echo ""
 echo "Now setting up the Scheduler Node-RED project from GitHub."
@@ -269,43 +270,32 @@ if [ -f index.html ]; then
   sudo rm -f index.html
 fi
 
-# Download the site archive by cloning the nsrc-flex-scheduler repo
-# directly (public repo, anonymous HTTPS, no auth needed). This avoids
-# the fragility of guessing GitHub's raw-file URL format.
-WEBSITE_REPO_NAME="nsrc-flex-scheduler"
-WEBSITE_HTTPS_URL="https://github.com/${GITHUB_USER}/${WEBSITE_REPO_NAME}.git"
-WEBSITE_CLONE_DIR="/tmp/${WEBSITE_REPO_NAME}"
+# Download the site archive from Dropbox (dl=1 forces a direct file
+# download instead of Dropbox's HTML preview page).
+DROPBOX_ZIP_URL="https://www.dropbox.com/scl/fi/qwrwi589pj7si9g2etboi/nsrc-flex-scheduler.zip?rlkey=m73one1x1dc8eiovt63mg28pu&st=s4s6f7u5&dl=1"
 
-rm -rf "$WEBSITE_CLONE_DIR"
+echo "Downloading site archive from Dropbox..."
+curl -fL -o nsrc-scheduler.zip "$DROPBOX_ZIP_URL"
 
-# Repo is public, so plain anonymous HTTPS clone works - no auth needed.
-git clone "$WEBSITE_HTTPS_URL" "$WEBSITE_CLONE_DIR"
-
-if [ ! -f "$WEBSITE_CLONE_DIR/nsrc-scheduler.tar" ]; then
-  echo "ERROR: nsrc-scheduler.tar not found in the cloned $WEBSITE_REPO_NAME repo."
-  echo "Contents of the repo:"
-  ls -la "$WEBSITE_CLONE_DIR"
+if [ ! -s nsrc-scheduler.zip ]; then
+  echo "ERROR: nsrc-scheduler.zip download failed or produced an empty file."
   exit 1
 fi
 
-sudo cp "$WEBSITE_CLONE_DIR/nsrc-scheduler.tar" ./nsrc-scheduler.tar
-rm -rf "$WEBSITE_CLONE_DIR"
-
-# Validate we actually got a tar archive before extracting - if GitHub
-# served an HTML/error page instead (redirect issue, wrong path, etc.),
-# fail loudly here rather than let extraction produce a confusing error.
-# Uses tar's own list/test mode rather than the `file` command, since
-# `file` isn't guaranteed to be installed on a fresh Pi image.
-if ! tar -tf nsrc-scheduler.tar > /dev/null 2>&1; then
-  echo "ERROR: downloaded file is not a valid tar archive. First 300 bytes:"
-  head -c 300 nsrc-scheduler.tar
+# Validate we actually got a real zip archive before extracting - if
+# Dropbox served an HTML/error page instead (bad link, expired share,
+# rate limit, etc.), fail loudly here rather than let extraction
+# produce a confusing error.
+if ! unzip -tq nsrc-scheduler.zip > /dev/null 2>&1; then
+  echo "ERROR: downloaded file is not a valid zip archive. First 300 bytes:"
+  head -c 300 nsrc-scheduler.zip
   echo ""
-  echo "Check the raw URL for nsrc-scheduler.tar in the nsrc-flex-scheduler repo and re-run."
+  echo "Check the Dropbox share link (must end in dl=1 and be set to 'Anyone with the link') and re-run."
   exit 1
 fi
 
-sudo tar -xvf nsrc-scheduler.tar
-sudo rm -f nsrc-scheduler.tar
+sudo unzip -o nsrc-scheduler.zip -d /var/www/html
+sudo rm -f nsrc-scheduler.zip
 
 # The tar extracts its files directly into the current directory
 # (paths like ./index.php), not into a wrapping "nsrc-flex" subfolder,
