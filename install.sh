@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash 
 ## ---- Functions ----- ##
 #Create ProgressBar function
 function ProgressBar {
