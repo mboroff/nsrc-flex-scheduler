@@ -1,6 +1,6 @@
 #!/bin/bash
 ## ---- install.sh ----- ##
-## Version: 1.3
+## Version: 1.4
 ## Updated: 2026-08-25
 ## ---- Functions ----- ##
 #Create ProgressBar function
@@ -15,6 +15,34 @@ function ProgressBar {
 # Output example:
 # Progress : [########################################] 100%
     printf "\rProgress : [${_done// /#}${_left// /-}] ${_progress}%%"
+}
+
+# Spinner that runs indefinitely - unlike ProgressBar (which guesses a
+# fixed duration and finishes even if the real command is still
+# running), this keeps animating for as long as the actual command
+# takes, so the screen never goes static while something is still
+# working in the background. Call `spin_start` right before the real
+# command, then `spin_stop` right after it finishes.
+function spin_start {
+  ( local chars="/-\|"
+    local i=0
+    while true; do
+      i=$(( (i+1) % 4 ))
+      printf "\r%s Working..." "${chars:$i:1}"
+      sleep 0.3
+    done
+  ) &
+  SPIN_PID=$!
+  disown "$SPIN_PID" 2>/dev/null
+}
+
+function spin_stop {
+  if [ -n "$SPIN_PID" ]; then
+    kill "$SPIN_PID" 2>/dev/null
+    wait "$SPIN_PID" 2>/dev/null
+  fi
+  printf "\r%-60s\r" " "
+  SPIN_PID=""
 }
 
 # On a freshly-imaged Pi, Wi-Fi/DNS can take a few extra seconds to be
@@ -92,7 +120,7 @@ PROJECT_DIR="$PROJECTS_DIR/$PROJECT_NAME"
 
 clear
 ## ---- Initial Questioning ---- ##
-echo "Scheduler Installer - Version 1.3 (Updated 2026-08-25)"
+echo "Scheduler Installer - Version 1.4 (Updated 2026-08-25)"
 printf "Welcome to the Scheduler Installer.\nPlease hit enter to continue. "
 read
 echo "Are you wanting to update Node-Red?"
@@ -125,17 +153,10 @@ wait_for_network
 ## ---- Update RPI / Install Node-Red ---- ##
 if  [[ $flag_update != 'n' ]] && [[ $flag_update != 'N' ]]; then
 echo "Updating and Upgrading your Pi to newest standards"
-for number in $(seq ${_start} ${_end})
-do
-	sleep 2
-	ProgressBar ${number} ${_end}
-done &
-bgid=$!
+spin_start
 apt_update_or_die
 sudo -n DEBIAN_FRONTEND=noninteractive apt-get full-upgrade -qq -y > /dev/null && sudo apt-get clean > /dev/null
-kill $bgid
-wait
-ProgressBar ${_end}  ${_end}
+spin_stop
 # -- Install Node-Red -- #
 bash <(curl -sL https://raw.githubusercontent.com/node-red/linux-installers/master/deb/update-nodejs-and-nodered) <<!
 y
@@ -152,17 +173,9 @@ sudo systemctl enable --now nodered.service
 echo "Node-Red enabled for auto startup  Y"
 # -- Install Apache, SQL (MariaDB), and PHP -- #
 echo "Installing Apache, MariaDB, and PHP"
-for number in $(seq ${_start} ${_end})
-do
-	sleep 1
-	ProgressBar ${number} ${_end}
-done &
-bgid=$!
+spin_start
 apt_install_or_die apache2 mariadb-server php php-mysql php-sqlite3 php-cli libapache2-mod-php sqlite3
-kill $bgid
-wait
-ProgressBar ${_end} ${_end}
-echo ""
+spin_stop
 echo "Install Apache, SQL, & PHP  Y"
 
 # Node-RED's reservation-status check (in the scheduler's flows.json)
