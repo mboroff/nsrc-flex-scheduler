@@ -48,62 +48,83 @@ instead, or updating an existing install.
 ### How the web site files get onto the Pi
 
 The Node-RED flows (`src-flx-scheduler-node-red-project` repo) and this
-PHP web site (`nsrc-flex-scheduler` repo) are two separate GitHub
-repositories. The script handles them differently:
+PHP web site are handled completely differently by the installer:
 
 - **Node-RED flows**: cloned directly with `git clone` into
   `~/.node-red/projects/nsrc-flex-scheduler`, since Node-RED just needs
   the flow files (`flows.json`, `flows_cred.json`) copied into
   `~/.node-red` and any node dependencies from the project's
   `package.json` installed there.
-- **Web site**: rather than cloning the web repo's working tree
-  directly into `/var/www/html` (which would also drop a `.git` folder
-  and any non-site files into Apache's web root), the script clones the
-  repo to a scratch location under `/tmp`, expects to find a
-  **`nsrc-scheduler.tar`** archive inside it, and extracts *that* into
-  `/var/www/html`. This keeps the deployed site to exactly the files
-  meant to be served, with no version-control metadata alongside it.
+- **Web site**: the site's files aren't stored in a GitHub repo at all
+  (a full copy - images, database init scripts, etc. - is too large for
+  a normal git push). Instead they're zipped up and hosted as a Dropbox
+  file; `install.sh` downloads that zip directly and extracts it into
+  `/var/www/html`.
 
   The steps, in order:
   1. `cd /var/www/html` and remove the default Apache landing page
      (`index.html`) if present.
-  2. `git clone` the web site repo into a `/tmp` scratch folder (public
-     repo, plain anonymous HTTPS - no token/auth needed).
-  3. Confirm `nsrc-scheduler.tar` exists inside the cloned folder; if
-     it's missing, the script lists the repo contents and exits with an
-     error rather than continuing with nothing to deploy.
-  4. Copy `nsrc-scheduler.tar` into `/var/www/html`, then delete the
-     `/tmp` scratch clone.
-  5. **Validate before extracting**: run `tar -tf` on the archive first.
-     If GitHub ever served an HTML error/redirect page instead of the
-     real file (wrong path, repo renamed, etc.), this catches it
-     immediately - printing the first 300 bytes of whatever was
-     downloaded - instead of letting `tar -xvf` fail confusingly or
-     silently extract garbage.
-  6. Extract the tar (`sudo tar -xvf nsrc-scheduler.tar`) directly into
-     `/var/www/html`, then remove the tar file. The archive's paths are
-     relative (`./index.php`, etc.) with no wrapping folder, so the
-     files land straight in the web root.
-  7. `chown -R www-data:www-data /var/www/html` so Apache owns
+  2. `curl` the zip from a fixed Dropbox share link (forced to `dl=1` so
+     it downloads the file directly instead of opening Dropbox's HTML
+     preview page) into `/tmp/nsrc-scheduler.zip` - not straight into
+     `/var/www/html`, since that directory is still root-owned at this
+     point and the installer doesn't run as root.
+  3. **Validate before extracting**: run `unzip -tq` on the downloaded
+     file first. If Dropbox ever served an HTML/error page instead of
+     the real file (bad link, expired share, rate limit, etc.), this
+     catches it immediately - printing the first 300 bytes of whatever
+     was downloaded - instead of letting extraction fail confusingly or
+     silently produce garbage.
+  4. Extract the zip into `/var/www/html`, then delete the temp zip.
+  5. **Flatten a Finder-zip wrapper if present**: a zip built with
+     macOS Finder's "Compress" wraps the actual files inside a
+     subfolder matching the original folder's name (e.g.
+     `nsrc-flex-scheduler/index.php` instead of `index.php` directly),
+     and adds a hidden `__MACOSX` metadata folder alongside it. The
+     script deletes `__MACOSX`, then - if `index.php` isn't directly in
+     `/var/www/html` - finds whichever folder it actually landed in and
+     copies that folder's contents up into `/var/www/html`, removing
+     the now-empty wrapper folder afterward. This makes the installer
+     work correctly whether the zip has a wrapper folder or not.
+  6. `chown -R www-data:www-data /var/www/html` so Apache owns
      everything just deployed.
-  8. Run `init_db.php` as `www-data` to create `db/nsrc_flex.db`, then
+  7. Run `init_db.php` as `www-data` to create `db/nsrc_flex.db`, then
      `chmod 775 db/` so the web server can write to it.
-  9. Explicitly `apt-get install php-sqlite3` and `phpenmod pdo_sqlite`
+  8. Explicitly `apt-get install php-sqlite3` and `phpenmod pdo_sqlite`
      and restart Apache - `init_db.php` can succeed even if the
      extension isn't actually enabled for live requests, so this step
      makes sure the running site has it.
 
-  **When updating this repo**, keep `nsrc-scheduler.tar` in sync with
-  the actual site files (rebuild/re-commit it whenever `index.php`,
-  `config.php`, etc. change) - the installer only ever looks at the tar,
-  not the individual files sitting next to it in the repo.
+  **When updating the site files**, re-zip the whole folder and
+  re-upload it to the *same* Dropbox share slot (replacing the file
+  in place, not creating a new share) - that keeps the file ID and
+  `rlkey` in the share link identical, so `install.sh` never needs to
+  change. You'd only need to update the `DROPBOX_ZIP_URL` in
+  `install.sh` if you ever delete and recreate the share from scratch
+  instead of replacing the file in place.
 
+- **sqlite3 CLI**: in addition to the `php-sqlite3` extension PHP
+  itself uses, the installer also installs the plain `sqlite3`
+  command-line tool. This isn't for the PHP site - it's what the
+  Node-RED flows shell out to (via `exec` nodes) to check the current
+  hour's reservation status directly against the same database, so
+  the radio dashboard pages show "Available" / "Reserved by ..." using
+  the same underlying data as `radio_control.php`, without needing a
+  separate Node-RED database node installed.
 - **Reboot/Shutdown permissions**: after the site is deployed, the
   script also writes the `www-data ALL=(root) NOPASSWD: /sbin/reboot,
   /sbin/shutdown -h` sudoers rule needed by `pi_status.php` (see the
   "Pi Status" section below), validating it with `visudo -c` and
   removing it again if it fails validation - a broken sudoers.d file
   could otherwise break `sudo` system-wide.
+
+## Manual setup (without install.sh)
+
+The sections below describe setting the site up by hand, file by file
+- useful if you're not using `install.sh` (e.g. deploying to a non-Pi
+server, or just want to see each piece individually). If you're running
+the automated installer, skip ahead to "How the login/account logic
+works" - the steps below aren't what `install.sh` actually does.
 
 ## 1. Install PHP (if not already present)
 
@@ -356,6 +377,18 @@ letter case.
 The site itself doesn't control the radios directly - it only
 gatekeeps against double-booking and hands off to Node-RED, which
 already does the real work reliably.
+
+**The Node-RED dashboard pages also show reservation status on their
+own**, independent of this PHP check: each radio's tab (and the
+combined "All Radios" page) queries the same `nsrc_flex.db` database
+directly on load and every 15 seconds afterward, showing "Available
+for Activation" or "Radio is currently reserved by <call sign>" - the
+same underlying data `check_reservation.php` uses, just computed
+Node-RED-side via the `sqlite3` CLI rather than through PHP. This is a
+shared/global display (not tied to who's viewing), so unlike the PHP
+check it doesn't currently hide the message from the person who made
+the reservation themselves - it shows the reserving call sign to
+everyone, including that person.
 
 **`NODE_RED_URL`** must be the Pi's own LAN address (e.g.
 `http://10.0.0.209:1880/dashboard/radio-activation`), not
