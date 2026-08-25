@@ -1,5 +1,5 @@
 #!/bin/bash
-## ---- install.sh ----- ##
+## ---- install.sh ----- ## 
 ## Version: 1.2
 ## Updated: 2026-08-25
 ## ---- Functions ----- ##
