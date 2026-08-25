@@ -1,6 +1,6 @@
 #!/bin/bash
 ## ---- install.sh ----- ##
-## Version: 1.4
+## Version: 1.5
 ## Updated: 2026-08-25
 ## ---- Functions ----- ##
 #Create ProgressBar function
@@ -120,7 +120,7 @@ PROJECT_DIR="$PROJECTS_DIR/$PROJECT_NAME"
 
 clear
 ## ---- Initial Questioning ---- ##
-echo "Scheduler Installer - Version 1.4 (Updated 2026-08-25)"
+echo "Scheduler Installer - Version 1.5 (Updated 2026-08-25)"
 printf "Welcome to the Scheduler Installer.\nPlease hit enter to continue. "
 read
 echo "Are you wanting to update Node-Red?"
@@ -158,6 +158,29 @@ apt_update_or_die
 sudo -n DEBIAN_FRONTEND=noninteractive apt-get full-upgrade -qq -y > /dev/null && sudo apt-get clean > /dev/null
 spin_stop
 # -- Install Node-Red -- #
+
+# A recent version of the official Node-RED installer, when it finds
+# no existing settings.js, auto-launches an interactive "Settings File
+# initialisation" wizard after the install itself finishes. Our
+# heredoc below only answers the two original y/y install-confirmation
+# prompts - it knows nothing about this newer wizard, so without a
+# settings.js already in place, the installer hangs waiting on the
+# wizard's first question. Pre-creating a minimal settings.js here
+# means Node-RED finds one already exists and skips the wizard
+# entirely, so the heredoc's two answers are all that's ever needed.
+mkdir -p "$HOME/.node-red"
+if [ ! -f "$HOME/.node-red/settings.js" ]; then
+  echo "Pre-creating a minimal Node-RED settings.js to skip the interactive setup wizard..."
+  cat > "$HOME/.node-red/settings.js" << 'SETTINGS_EOF'
+module.exports = {
+    uiPort: process.env.PORT || 1880,
+    flowFile: 'flows.json',
+    userDir: process.env.HOME + '/.node-red/',
+    functionGlobalContext: {},
+};
+SETTINGS_EOF
+fi
+
 bash <(curl -sL https://raw.githubusercontent.com/node-red/linux-installers/master/deb/update-nodejs-and-nodered) <<!
 y
 y
