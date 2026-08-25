@@ -1,4 +1,7 @@
-#!/bin/bash 
+#!/bin/bash
+## ---- install.sh ----- ##
+## Version: 1.2
+## Updated: 2026-08-25
 ## ---- Functions ----- ##
 #Create ProgressBar function
 function ProgressBar {
@@ -38,7 +41,7 @@ function wait_for_network {
 # a valid package index.
 function apt_update_or_die {
   for i in 1 2 3 4 5; do
-    if sudo apt-get update -qq > /dev/null 2>/tmp/apt_update_err; then
+    if sudo -n DEBIAN_FRONTEND=noninteractive apt-get update -qq > /dev/null 2>/tmp/apt_update_err; then
       return 0
     fi
     echo "apt-get update failed (attempt $i/5), retrying in 5s..."
@@ -56,7 +59,7 @@ function apt_update_or_die {
 # re-update) before giving up - this fixed a real-world case where
 # apt-get update reported success but the index was still stale/broken.
 function apt_install_or_die {
-  if sudo apt-get install -y -qq "$@" > /tmp/apt_install_err 2>&1; then
+  if sudo -n DEBIAN_FRONTEND=noninteractive apt-get install -y -qq "$@" > /tmp/apt_install_err 2>&1; then
     return 0
   fi
 
@@ -65,7 +68,7 @@ function apt_install_or_die {
   sudo apt-get clean
   apt_update_or_die
 
-  if sudo apt-get install -y -qq "$@" > /tmp/apt_install_err 2>&1; then
+  if sudo -n DEBIAN_FRONTEND=noninteractive apt-get install -y -qq "$@" > /tmp/apt_install_err 2>&1; then
     return 0
   fi
 
@@ -95,6 +98,28 @@ echo "Are you wanting to update Node-Red?"
 echo -n "Only choose no if you have installed Node-red already on this machine. Most people will choose Yes."
 read -p "(Y/n) " flag_update
 
+# Ask for the sudo password once, up front, then keep the credential
+# cache alive in the background for the rest of the script. Without
+# this, sudo's timestamp can expire during a long unattended step
+# (e.g. the multi-minute progress-bar wait during full-upgrade) and a
+# later "sudo ..." call whose output is redirected to /dev/null will
+# silently re-prompt for the password - looking like the script has
+# hung until you notice and type it in blind.
+echo "Requesting sudo access up front so long steps below don't silently re-prompt..."
+until sudo -v; do
+  echo "That password didn't work - please try again."
+done
+echo "Sudo access confirmed."
+( while true; do sudo -n true; sleep 60; kill -0 "$$" 2>/dev/null || exit; done ) 2>/dev/null &
+SUDO_KEEPALIVE_PID=$!
+trap 'kill "$SUDO_KEEPALIVE_PID" 2>/dev/null' EXIT
+
+# Prevent apt from ever blocking on a hidden interactive prompt
+# (service-restart dialogs, config-file-conflict dialogs, etc.) -
+# these show up on stdin/stdout even when the surrounding command's
+# output is redirected, so they can look identical to a hang.
+export DEBIAN_FRONTEND=noninteractive
+
 wait_for_network
 ## ---- Update RPI / Install Node-Red ---- ##
 if  [[ $flag_update != 'n' ]] && [[ $flag_update != 'N' ]]; then
@@ -106,7 +131,7 @@ do
 done &
 bgid=$!
 apt_update_or_die
-sudo apt-get full-upgrade -qq -y > /dev/null && sudo apt-get clean > /dev/null
+sudo -n DEBIAN_FRONTEND=noninteractive apt-get full-upgrade -qq -y > /dev/null && sudo apt-get clean > /dev/null
 kill $bgid
 wait
 ProgressBar ${_end}  ${_end}
