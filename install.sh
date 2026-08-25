@@ -1,6 +1,6 @@
 #!/bin/bash
 ## ---- install.sh ----- ##
-## Version: 1.6
+## Version: 1.7
 ## Updated: 2026-08-25
 ## ---- Functions ----- ##
 #Create ProgressBar function
@@ -120,7 +120,7 @@ PROJECT_DIR="$PROJECTS_DIR/$PROJECT_NAME"
 
 clear
 ## ---- Initial Questioning ---- ##
-echo "Scheduler Installer - Version 1.6 (Updated 2026-08-25)"
+echo "Scheduler Installer - Version 1.7 (Updated 2026-08-25)"
 printf "Welcome to the Scheduler Installer.\nPlease hit enter to continue. "
 read
 echo "Are you wanting to update Node-Red?"
@@ -306,13 +306,18 @@ if [ -f index.html ]; then
 fi
 
 # Download the site archive from Dropbox (dl=1 forces a direct file
-# download instead of Dropbox's HTML preview page).
+# download instead of Dropbox's HTML preview page). Downloaded to /tmp
+# rather than /var/www/html directly - at this point in the script the
+# directory is still owned by root (we don't chown it to www-data
+# until after extraction below), so the current user can't write a
+# new file straight into it; /tmp is always writable regardless.
 DROPBOX_ZIP_URL="https://www.dropbox.com/scl/fi/qwrwi589pj7si9g2etboi/nsrc-flex-scheduler.zip?rlkey=m73one1x1dc8eiovt63mg28pu&st=s4s6f7u5&dl=1"
+ZIP_PATH="/tmp/nsrc-scheduler.zip"
 
 echo "Downloading site archive from Dropbox..."
-curl -fL -o nsrc-scheduler.zip "$DROPBOX_ZIP_URL"
+curl -fL -o "$ZIP_PATH" "$DROPBOX_ZIP_URL"
 
-if [ ! -s nsrc-scheduler.zip ]; then
+if [ ! -s "$ZIP_PATH" ]; then
   echo "ERROR: nsrc-scheduler.zip download failed or produced an empty file."
   exit 1
 fi
@@ -321,16 +326,16 @@ fi
 # Dropbox served an HTML/error page instead (bad link, expired share,
 # rate limit, etc.), fail loudly here rather than let extraction
 # produce a confusing error.
-if ! unzip -tq nsrc-scheduler.zip > /dev/null 2>&1; then
+if ! unzip -tq "$ZIP_PATH" > /dev/null 2>&1; then
   echo "ERROR: downloaded file is not a valid zip archive. First 300 bytes:"
-  head -c 300 nsrc-scheduler.zip
+  head -c 300 "$ZIP_PATH"
   echo ""
   echo "Check the Dropbox share link (must end in dl=1 and be set to 'Anyone with the link') and re-run."
   exit 1
 fi
 
-sudo unzip -o nsrc-scheduler.zip -d /var/www/html
-sudo rm -f nsrc-scheduler.zip
+sudo unzip -o "$ZIP_PATH" -d /var/www/html
+rm -f "$ZIP_PATH"
 
 # The tar extracts its files directly into the current directory
 # (paths like ./index.php), not into a wrapping "nsrc-flex" subfolder,
