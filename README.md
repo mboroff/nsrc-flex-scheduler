@@ -2,7 +2,7 @@
 
 Login / account-creation / password-change site for the North Shore
 Radio Club Flex-Cadre
-group, built to run on a Raspberry Pi with Apache already installed.
+group, built to run on a Raspberry Pi.
 
 ## What's included
 
@@ -29,6 +29,18 @@ group, built to run on a Raspberry Pi with Apache already installed.
 | `schema.sql` | Table definitions |
 | `css/style.css` | Site styling |
 | `images/*.png` | Radio photos |
+
+## Supporting Documentation
+
+Additional documentation for the NSRC Flex-Cadre Scheduler lives in a
+separate GitHub repository:
+[nsrc-scheduler-documentation](https://github.com/mboroff/nsrc-scheduler-documentation).
+
+| Document | Description |
+|---|---|
+| NSRC-FLEX Scheduler User Guide | End-user guide for logging in, creating an account, and using the scheduling calendar and radio control pages |
+| Flex-Cadre PowerPoint Presentation | Overview presentation covering the system and how it works |
+| NSRC-Flex-Scheduler Demonstration Script | Script for walking through a live demonstration of the system |
 
 ## Install Script
 
@@ -483,15 +495,3 @@ I could not test actual `sudo reboot`/`sudo shutdown` execution or the
 thermal-zone read against real Raspberry Pi hardware from this
 environment - worth confirming those against the real Pi once the
 sudoers file above is in place.
-
-## Supporting Documentation
-
-Additional documentation for the NSRC Flex-Cadre Scheduler lives in a
-separate GitHub repository:
-[nsrc-scheduler-documentation](https://github.com/mboroff/nsrc-scheduler-documentation).
-
-| Document | Description |
-|---|---|
-| NSRC-FLEX Scheduler User Guide | End-user guide for logging in, creating an account, and using the scheduling calendar and radio control pages |
-| Flex-Cadre PowerPoint Presentation | Overview presentation covering the system and how it works |
-| NSRC-Flex-Scheduler Demonstration Script | Script for walking through a live demonstration of the system |
