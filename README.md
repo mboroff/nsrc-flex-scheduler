@@ -130,6 +130,16 @@ PHP web site are handled completely differently by the installer:
   removing it again if it fails validation - a broken sudoers.d file
   could otherwise break `sudo` system-wide.
 
+**If you're setting this up for a group other than the Flex-Cadre**,
+create your own account and password for the `WD9GYM` super-admin Call
+Sign right after running `install.sh`, before inviting anyone else to
+use the site. The super-admin Call Sign is hardcoded (see
+`ADMIN_CALL_SIGN` in `config.php` for the regular admin role, and the
+"Pi Status" section below for the `WD9GYM`-specific super-admin check)
+- so for your own group's deployment, that Call Sign needs to belong to
+you, not to WD9GYM's original holder, in order to access `pi_status.php`
+and the Reboot/Shutdown controls.
+
 ## Manual setup (without install.sh)
 
 The sections below describe setting the site up by hand, file by file
@@ -244,7 +254,49 @@ http://<your-pi-ip-address>:8080/
   against the database, requires New = Confirm, then updates the stored
   hash and `updated_at`, and returns to the login page.
 
-## Photos
+## Club Membership Roster (CSV)
+
+`members_import.php` (admin-only) is how the `members` table gets
+populated - upload a CSV exported from the club's own roster
+spreadsheet (File &rarr; Download &rarr; Comma Separated Values) and
+every account-creation check runs against it afterward.
+
+**Expected columns** (matched by header name, case-insensitive, so
+order doesn't matter except for the last two):
+
+| Column | Required? | Purpose |
+|---|---|---|
+| `Call Sign` | Yes | Matched (after normalizing to uppercase/trim) against the Call Sign entered at account creation |
+| `First Name` | No | Shown next to the Call Sign in the members list |
+| `Last Name` | No | Shown next to the Call Sign in the members list |
+| *a 4-digit year matching the current year* (e.g. `2026`) | Yes | Dues status for the current year - see below. If no column header matches this year, the whole upload is rejected and nobody can be validated |
+| *last column in the file* | No | Free-text comments; whatever's in the file's last column is stored as-is |
+
+**How dues status is determined**: for the current-year column, a
+member is marked **current** if the cell's value equals the current
+year (e.g. `2026`) *or* next year (e.g. `2027`, for someone who's paid
+ahead). Any other value - blank, last year, or junk text - is treated
+as **not current**.
+
+**Uploading is a full replace**: each upload deletes the entire
+`members` table and reloads it from the file, *except* for any Call
+Sign an admin has manually marked current/not current via the "Manually
+Mark a Call Sign Current" override further down the page - those
+overridden rows keep their overridden status and comments across the
+next upload, everyone else is replaced fresh. Because of this, the
+super-admin (`WD9GYM`) doesn't need to appear on the roster at all -
+account creation exempts that one Call Sign from the membership check
+entirely (see "How the login/account logic works" above) - but if
+you'd like WD9GYM's info to also appear cleanly in the members list
+itself, include it in the CSV like any other member, or add it via the
+manual-override form after importing.
+
+A small sample CSV (WD9GYM plus one fake member, two data rows) may
+also be added to the
+[nsrc-scheduler-documentation](https://github.com/mboroff/nsrc-scheduler-documentation)
+repository as a reference for the expected column layout.
+
+
 
 The header photos are your own product photos of the Flex 6400/8400/8600
 (`images/flex6400.png`, `flex8400.png`, `flex8600.png`).
