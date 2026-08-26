@@ -179,7 +179,7 @@ sudo chmod 775 /var/www/html/nsrc-flex/db
 ## 4. Visit the site
 
 ```
-http://<your-pi-ip-address>/nsrc-flex/
+http://<your-pi-ip-address>:8080/
 ```
 
 ## How the login/account logic works
