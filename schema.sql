@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS members (
     is_current     INTEGER NOT NULL DEFAULT 0,
     overridden     INTEGER NOT NULL DEFAULT 0,  -- 1 = admin manually set is_current; re-imports won't touch it
     comments       TEXT,
+    status_flag    TEXT,   -- 'lost_dues' or 'missing', set during CSV import; cleared on manual admin action
     imported_at    TEXT NOT NULL
 );
 

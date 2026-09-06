@@ -109,6 +109,7 @@ if (in_array('members', $tables, true)) {
             is_current  INTEGER NOT NULL DEFAULT 0,
             overridden  INTEGER NOT NULL DEFAULT 0,
             comments    TEXT,
+            status_flag TEXT,
             imported_at TEXT NOT NULL
         )"
     );
@@ -121,6 +122,11 @@ $memberCols = in_array('members', $tables, true)
 if ($memberCols && !in_array('overridden', $memberCols, true)) {
     $pdo->exec("ALTER TABLE members ADD COLUMN overridden INTEGER NOT NULL DEFAULT 0");
     echo "Added members.overridden.\n";
+}
+
+if ($memberCols && !in_array('status_flag', $memberCols, true)) {
+    $pdo->exec("ALTER TABLE members ADD COLUMN status_flag TEXT");
+    echo "Added members.status_flag (flags accounts as 'lost_dues' or 'missing' during roster imports).\n";
 }
 
 if (in_array('is_admin', $userCols, true)) {

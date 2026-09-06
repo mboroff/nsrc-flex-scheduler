@@ -127,6 +127,9 @@ function get_db(): PDO {
         if (!in_array('overridden', $memberColumns, true)) {
             fail_with('This site was updated but the database was not. Run: sudo -u www-data php ' . __DIR__ . '/migrate_db.php');
         }
+        if (!in_array('status_flag', $memberColumns, true)) {
+            fail_with('This site was updated but the database was not. Run: sudo -u www-data php ' . __DIR__ . '/migrate_db.php');
+        }
         $userColumns = $pdo->query("PRAGMA table_info(users)")->fetchAll(PDO::FETCH_COLUMN, 1);
         if (!in_array('is_admin', $userColumns, true)) {
             fail_with('This site was updated but the database was not. Run: sudo -u www-data php ' . __DIR__ . '/migrate_db.php');

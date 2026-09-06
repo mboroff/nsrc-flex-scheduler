@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     if ($current !== false) {
         $newState = $current ? 0 : 1;
         $update = $db->prepare(
-            "UPDATE members SET is_current = ?, overridden = 1, comments = 'Admin override (" . date('Y-m-d') . ")' WHERE call_sign = ?"
+            "UPDATE members SET is_current = ?, overridden = 1, status_flag = NULL, comments = 'Admin override (" . date('Y-m-d') . ")' WHERE call_sign = ?"
         );
         $update->execute([$newState, $callSign]);
         $_SESSION['flash_success'] = "$callSign marked " . ($newState ? 'current' : 'not current') . ' by admin override.';
@@ -58,9 +58,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         $_SESSION['flash_error'] = 'Call Sign is required to add a member manually.';
     } else {
         $upsert = $db->prepare(
-            "INSERT INTO members (call_sign, first_name, last_name, dues_column, dues_value, is_current, overridden, comments, imported_at)
-             VALUES (?, '', '', ?, 'Admin override', 1, 1, ?, ?)
-             ON CONFLICT(call_sign) DO UPDATE SET is_current = 1, overridden = 1, comments = excluded.comments, imported_at = excluded.imported_at"
+            "INSERT INTO members (call_sign, first_name, last_name, dues_column, dues_value, is_current, overridden, comments, status_flag, imported_at)
+             VALUES (?, '', '', ?, 'Admin override', 1, 1, ?, NULL, ?)
+             ON CONFLICT(call_sign) DO UPDATE SET is_current = 1, overridden = 1, status_flag = NULL, comments = excluded.comments, imported_at = excluded.imported_at"
         );
         $upsert->execute([$callSign, (string) date('Y'), 'Added/marked current by admin override (' . date('Y-m-d') . ')', date('Y-m-d H:i:s')]);
         $_SESSION['flash_success'] = "$callSign added and marked current.";
@@ -107,16 +107,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['roster'])) {
             } elseif ($yearColIdx === null) {
                 $flashError = "Could not find a column for the current year ($thisYear). Nobody can be validated until that column exists.";
             } else {
-                // Full replace: every upload starts clean. Any admin
-                // override from before this upload is intentionally NOT
-                // preserved - re-apply it after uploading if still needed.
-                $db->exec('DELETE FROM members');
+                // No longer a full delete-and-reload. We keep every
+                // existing row so we can flag people instead of silently
+                // dropping them:
+                //   - "lost_dues"  : was current before, this roster's
+                //                    year column no longer validates them
+                //   - "missing"    : was in the roster before, isn't in
+                //                    this upload at all
+                $wasCurrent = [];
+                foreach ($db->query('SELECT call_sign FROM members WHERE is_current = 1') as $r) {
+                    $wasCurrent[$r['call_sign']] = true;
+                }
+                $allExisting = [];
+                foreach ($db->query('SELECT call_sign FROM members') as $r) {
+                    $allExisting[$r['call_sign']] = true;
+                }
 
                 $now = date('Y-m-d H:i:s');
                 $imported = 0;
+                $seenCallSigns = [];
+                $droppedDues = [];
+
                 $upsert = $db->prepare(
-                    'INSERT INTO members (call_sign, first_name, last_name, dues_column, dues_value, is_current, overridden, comments, imported_at)
-                     VALUES (?, ?, ?, ?, ?, ?, 0, ?, ?)
+                    'INSERT INTO members (call_sign, first_name, last_name, dues_column, dues_value, is_current, overridden, comments, status_flag, imported_at)
+                     VALUES (?, ?, ?, ?, ?, ?, 0, ?, NULL, ?)
                      ON CONFLICT(call_sign) DO UPDATE SET
                         first_name = excluded.first_name,
                         last_name = excluded.last_name,
@@ -124,8 +138,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['roster'])) {
                         dues_value = excluded.dues_value,
                         is_current = CASE WHEN members.overridden = 1 THEN members.is_current ELSE excluded.is_current END,
                         comments = CASE WHEN members.overridden = 1 THEN members.comments ELSE excluded.comments END,
+                        status_flag = CASE WHEN members.overridden = 1 THEN members.status_flag ELSE NULL END,
                         imported_at = excluded.imported_at'
                 );
+                $flagLostDues = $db->prepare('UPDATE members SET status_flag = ? WHERE call_sign = ?');
 
                 for ($i = 1; $i < count($rows); $i++) {
                     $row = $rows[$i];
@@ -133,8 +149,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['roster'])) {
                     if ($callSign === '') {
                         continue;
                     }
+                    $seenCallSigns[$callSign] = true;
+
                     $duesValue = $row[$yearColIdx] ?? '';
                     $current = is_dues_current($duesValue, $thisYear);
+
                     $upsert->execute([
                         $callSign,
                         $firstNameIdx !== false ? trim($row[$firstNameIdx] ?? '') : '',
@@ -146,8 +165,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['roster'])) {
                         $now,
                     ]);
                     $imported++;
+
+                    // Flag anyone who was current before but this year's
+                    // column no longer validates them. This runs even for
+                    // overridden accounts (their is_current stays put
+                    // above, but the flag still surfaces the lapse).
+                    if (!$current && isset($wasCurrent[$callSign])) {
+                        $flagLostDues->execute(['lost_dues', $callSign]);
+                        $droppedDues[] = $callSign;
+                    }
                 }
+
+                // Anyone who existed before but wasn't in this upload at
+                // all: keep the row (don't erase history/overrides), but
+                // flag it and drop is_current unless an admin override is
+                // protecting it.
+                $missing = [];
+                $flagMissing = $db->prepare(
+                    "UPDATE members SET status_flag = 'missing',
+                        is_current = CASE WHEN overridden = 1 THEN is_current ELSE 0 END,
+                        imported_at = ?
+                     WHERE call_sign = ?"
+                );
+                foreach ($allExisting as $callSign => $unused) {
+                    if (isset($seenCallSigns[$callSign])) {
+                        continue;
+                    }
+                    $missing[] = $callSign;
+                    $flagMissing->execute([$now, $callSign]);
+                }
+
                 $flashSuccess = "Imported $imported member(s), checked against the $thisYear column.";
+                if ($droppedDues) {
+                    $flashSuccess .= ' ' . count($droppedDues) . ' account(s) flagged for lapsed dues: ' . implode(', ', $droppedDues) . '.';
+                }
+                if ($missing) {
+                    $flashSuccess .= ' ' . count($missing) . ' account(s) not found in this roster and flagged as no longer members: ' . implode(', ', $missing) . '.';
+                }
             }
         }
     }
@@ -188,8 +242,10 @@ require_once __DIR__ . '/includes/header.php';
 
     <h2 style="margin-top:28px;">Manually Mark a Call Sign Current</h2>
     <p style="color:#55677d;font-size:0.9rem;margin-top:-8px;">
-        For dues paid but not yet reflected on the spreadsheet. A full CSV upload replaces
-        the entire list, including any overrides - re-apply this after uploading if still needed.
+        For dues paid but not yet reflected on the spreadsheet. Overrides persist across
+        CSV uploads. A member missing from a new upload, or one whose dues column no
+        longer validates, is flagged in red below rather than removed - re-check flagged
+        accounts and update as needed.
     </p>
     <form method="post" action="members_import.php">
         <input type="hidden" name="action" value="add">
@@ -211,13 +267,22 @@ require_once __DIR__ . '/includes/header.php';
                     <td><?php echo h(trim($m['first_name'] . ' ' . $m['last_name'])); ?></td>
                     <td class="ts"><?php echo h($m['dues_column']); ?></td>
                     <td class="ts"><?php echo h($m['dues_value']); ?></td>
-                    <td><?php echo $m['is_current'] ? 'Yes' : 'No'; ?><?php echo $m['overridden'] ? ' <span style="color:#a15c07;">(override)</span>' : ''; ?></td>
+                    <td>
+                        <?php echo $m['is_current'] ? 'Yes' : 'No'; ?><?php echo $m['overridden'] ? ' <span style="color:#a15c07;">(override)</span>' : ''; ?>
+                        <?php if (!empty($m['status_flag'])): ?>
+                            <div style="margin-top:4px;">
+                                <span style="background:#c0392b;color:#fff;padding:2px 6px;border-radius:4px;font-size:0.75rem;white-space:nowrap;">
+                                    <?php echo $m['status_flag'] === 'missing' ? 'No longer member' : 'Dues lapsed'; ?>
+                                </span>
+                            </div>
+                        <?php endif; ?>
+                    </td>
                     <td><?php echo h($m['comments']); ?></td>
                     <td>
                         <form method="post" action="members_import.php" style="display:inline;">
                             <input type="hidden" name="action" value="toggle">
                             <input type="hidden" name="call_sign" value="<?php echo h($m['call_sign']); ?>">
-                            <button type="submit" class="btn btn-small btn-secondary">
+                            <button type="submit" class="btn btn-small btn-secondary"<?php echo !empty($m['status_flag']) ? ' style="background:#c0392b;border-color:#c0392b;color:#fff;"' : ''; ?>>
                                 Mark <?php echo $m['is_current'] ? 'Not Current' : 'Current'; ?>
                             </button>
                         </form>
