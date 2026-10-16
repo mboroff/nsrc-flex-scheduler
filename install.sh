@@ -311,7 +311,8 @@ fi
 # directory is still owned by root (we don't chown it to www-data
 # until after extraction below), so the current user can't write a
 # new file straight into it; /tmp is always writable regardless.
-DROPBOX_ZIP_URL="https://www.dropbox.com/scl/fi/a271usob1xtlbjj234a3o/nsrc-flex-scheduler.zip?rlkey=3dz3nd4tbjzq510bweqjfmswl&st=00cqnklx&dl=1"
+DROPBOX_ZIP_URL="https://www.dropbox.com/scl/fi/dg2mol795bp1zz75q59nv/nsrc-flex-scheduler.zip?rlkey=cys8p0ve1prh0jw4tyio1qf2h&st=t9mgbm3a&dl=0"
+# DROPBOX_ZIP_URL="https://www.dropbox.com/scl/fi/a271usob1xtlbjj234a3o/nsrc-flex-scheduler.zip?rlkey=3dz3nd4tbjzq510bweqjfmswl&st=00cqnklx&dl=1"
 ZIP_PATH="/tmp/nsrc-scheduler.zip"
 
 echo "Downloading site archive from Dropbox..."
