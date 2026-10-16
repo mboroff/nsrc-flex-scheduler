@@ -94,11 +94,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['roster'])) {
             $lastColIdx = count($header) - 1; // last column doubles as comments
 
             $thisYear = (int) date('Y');
+            $nextYear = $thisYear + 1;
             $yearColIdx = null;
+            $nextYearColIdx = null; // optional: dues paid ahead for next year
             foreach ($header as $idx => $col) {
-                if (preg_match('/^\d{4}$/', $col) && (int) $col === $thisYear) {
+                if (!preg_match('/^\d{4}$/', $col)) {
+                    continue;
+                }
+                if ((int) $col === $thisYear && $yearColIdx === null) {
                     $yearColIdx = $idx;
-                    break;
+                } elseif ((int) $col === $nextYear && $nextYearColIdx === null) {
+                    $nextYearColIdx = $idx;
                 }
             }
 
@@ -151,14 +157,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['roster'])) {
                     }
                     $seenCallSigns[$callSign] = true;
 
+                    // Prefer the next-year column when it validates the
+                    // member (e.g. "2027" in the 2027 column). Otherwise
+                    // fall back to the current-year column. Entries such
+                    // as "Pending" in the next-year column don't validate,
+                    // so they fall through to the current-year check.
+                    $duesColumn = $thisYear;
                     $duesValue = $row[$yearColIdx] ?? '';
                     $current = is_dues_current($duesValue, $thisYear);
+                    if ($nextYearColIdx !== null) {
+                        $nextValue = $row[$nextYearColIdx] ?? '';
+                        if (is_dues_current($nextValue, $nextYear)) {
+                            $duesColumn = $nextYear;
+                            $duesValue = $nextValue;
+                            $current = true;
+                        }
+                    }
 
                     $upsert->execute([
                         $callSign,
                         $firstNameIdx !== false ? trim($row[$firstNameIdx] ?? '') : '',
                         $lastNameIdx !== false ? trim($row[$lastNameIdx] ?? '') : '',
-                        (string) $thisYear,
+                        (string) $duesColumn,
                         trim($duesValue),
                         $current ? 1 : 0,
                         trim($row[$lastColIdx] ?? ''),
@@ -195,7 +215,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['roster'])) {
                     $flagMissing->execute([$now, $callSign]);
                 }
 
-                $flashSuccess = "Imported $imported member(s), checked against the $thisYear column.";
+                $flashSuccess = "Imported $imported member(s), checked against the $thisYear" . ($nextYearColIdx !== null ? " and $nextYear" : '') . ' column(s).';
                 if ($droppedDues) {
                     $flashSuccess .= ' ' . count($droppedDues) . ' account(s) flagged for lapsed dues: ' . implode(', ', $droppedDues) . '.';
                 }
